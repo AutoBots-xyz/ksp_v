@@ -1,0 +1,426 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": "2026-07-25",
+    "source": "Centroids from Census of India district headquarters; polygons are simplified octagonal buffers (fallback). Official GADM level-2 district boundaries not reachable from build environment — see fix log.",
+    "note": "Replace geometry.coordinates with official administrative polygons before production use. Centroid lat/lng are authoritative."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 443,
+        "districtName": "Bengaluru Urban",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.79984,
+              12.9716
+            ],
+            [
+              77.73972,
+              13.11302
+            ],
+            [
+              77.5946,
+              13.1716
+            ],
+            [
+              77.44948,
+              13.11302
+            ],
+            [
+              77.38936,
+              12.9716
+            ],
+            [
+              77.44948,
+              12.83018
+            ],
+            [
+              77.5946,
+              12.7716
+            ],
+            [
+              77.73972,
+              12.83018
+            ],
+            [
+              77.79984,
+              12.9716
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 444,
+        "districtName": "Bengaluru Rural",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.95515,
+              12.8667
+            ],
+            [
+              77.89506,
+              13.00812
+            ],
+            [
+              77.75,
+              13.0667
+            ],
+            [
+              77.60494,
+              13.00812
+            ],
+            [
+              77.54485,
+              12.8667
+            ],
+            [
+              77.60494,
+              12.72528
+            ],
+            [
+              77.75,
+              12.6667
+            ],
+            [
+              77.89506,
+              12.72528
+            ],
+            [
+              77.95515,
+              12.8667
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 445,
+        "districtName": "Mysuru",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.8441,
+              12.2958
+            ],
+            [
+              76.78414,
+              12.43722
+            ],
+            [
+              76.6394,
+              12.4958
+            ],
+            [
+              76.49466,
+              12.43722
+            ],
+            [
+              76.4347,
+              12.2958
+            ],
+            [
+              76.49466,
+              12.15438
+            ],
+            [
+              76.6394,
+              12.0958
+            ],
+            [
+              76.78414,
+              12.15438
+            ],
+            [
+              76.8441,
+              12.2958
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 446,
+        "districtName": "Belagavi",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              74.7056,
+              15.8497
+            ],
+            [
+              74.64471,
+              15.99112
+            ],
+            [
+              74.4977,
+              16.0497
+            ],
+            [
+              74.35069,
+              15.99112
+            ],
+            [
+              74.2898,
+              15.8497
+            ],
+            [
+              74.35069,
+              15.70828
+            ],
+            [
+              74.4977,
+              15.6497
+            ],
+            [
+              74.64471,
+              15.70828
+            ],
+            [
+              74.7056,
+              15.8497
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 447,
+        "districtName": "Kalaburagi",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.04381,
+              17.3297
+            ],
+            [
+              76.98245,
+              17.47112
+            ],
+            [
+              76.8343,
+              17.5297
+            ],
+            [
+              76.68615,
+              17.47112
+            ],
+            [
+              76.62479,
+              17.3297
+            ],
+            [
+              76.68615,
+              17.18828
+            ],
+            [
+              76.8343,
+              17.1297
+            ],
+            [
+              76.98245,
+              17.18828
+            ],
+            [
+              77.04381,
+              17.3297
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 448,
+        "districtName": "Mangaluru",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.06119,
+              12.9141
+            ],
+            [
+              75.00109,
+              13.05552
+            ],
+            [
+              74.856,
+              13.1141
+            ],
+            [
+              74.71091,
+              13.05552
+            ],
+            [
+              74.65081,
+              12.9141
+            ],
+            [
+              74.71091,
+              12.77268
+            ],
+            [
+              74.856,
+              12.7141
+            ],
+            [
+              75.00109,
+              12.77268
+            ],
+            [
+              75.06119,
+              12.9141
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 449,
+        "districtName": "Hubballi-Dharwad",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.33141,
+              15.3647
+            ],
+            [
+              75.27066,
+              15.50612
+            ],
+            [
+              75.124,
+              15.5647
+            ],
+            [
+              74.97734,
+              15.50612
+            ],
+            [
+              74.91659,
+              15.3647
+            ],
+            [
+              74.97734,
+              15.22328
+            ],
+            [
+              75.124,
+              15.1647
+            ],
+            [
+              75.27066,
+              15.22328
+            ],
+            [
+              75.33141,
+              15.3647
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "districtId": 450,
+        "districtName": "Davanagere",
+        "stateId": 29,
+        "boundary": "simplified-buffer (fallback)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.12835,
+              14.4644
+            ],
+            [
+              76.06785,
+              14.60582
+            ],
+            [
+              75.9218,
+              14.6644
+            ],
+            [
+              75.77575,
+              14.60582
+            ],
+            [
+              75.71525,
+              14.4644
+            ],
+            [
+              75.77575,
+              14.32298
+            ],
+            [
+              75.9218,
+              14.2644
+            ],
+            [
+              76.06785,
+              14.32298
+            ],
+            [
+              76.12835,
+              14.4644
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

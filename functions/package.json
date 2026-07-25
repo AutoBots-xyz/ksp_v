@@ -1,0 +1,22 @@
+{
+  "name": "@ksp/functions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KSP Catalyst Serverless Functions (modular monolith by domain)",
+  "main": "common/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "zcatalyst-sdk-node": "latest",
+    "zod": "^3.23.0",
+    "date-fns": "^3.6.0",
+    "csv-parse": "^5.5.0",
+    "pino": "^9.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}

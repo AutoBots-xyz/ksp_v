@@ -1,0 +1,6 @@
+{
+  "name": "ingest",
+  "type": "advancedio",
+  "category": "Advanced I/O",
+  "description": "FIR import pipeline trigger (sub-phase 1E)"
+}

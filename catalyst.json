@@ -1,0 +1,66 @@
+{
+  "project": {
+    "name": "ksp-crime-intelligence",
+    "type": "webapp",
+    "scope": "ksp"
+  },
+  "deployment": {
+    "client": {
+      "target": "hosting",
+      "path": "apps/web",
+      "build": "npm run build --workspace apps/web",
+      "output": "apps/web/out"
+    },
+    "functions": {
+      "target": "serverless",
+      "path": "functions",
+      "stack": "nodejs20"
+    }
+  },
+  "functions": {
+    "targets": [
+      "health",
+      "auth_context",
+      "cases",
+      "masters",
+      "analytics",
+      "network",
+      "ai",
+      "alerts",
+      "reports",
+      "admin",
+      "ingest",
+      "entities",
+      "search"
+    ],
+    "source": "functions",
+    "ignore": []
+  },
+  "client": {
+    "source": "apps/web",
+    "ignore": [],
+    "scripts": {
+      "predeploy": "npm run build --workspace apps/web"
+    }
+  },
+  "api_gateway": {
+    "base_path": "/api/v1",
+    "auth": true,
+    "cors": {
+      "origins": [
+        "http://localhost:3000",
+        "http://localhost:8080"
+      ]
+    }
+  },
+  "circuits": [
+    "circuits/fir_import_pipeline.json",
+    "circuits/report_generate.json"
+  ],
+  "jobs": [
+    "jobs/nightly_aggregates.json",
+    "jobs/cache_warm.json",
+    "jobs/anomaly_scan.json",
+    "jobs/weekly_model_retrain.json"
+  ]
+}

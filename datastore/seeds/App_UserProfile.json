@@ -1,0 +1,38 @@
+[
+  { 
+    "UserProfileID": 1, 
+    "CatalystUserId": "demo-scrb", 
+    "Role": "SCRB_ANALYST", 
+    "Active": true 
+  },
+  { 
+    "UserProfileID": 2, 
+    "CatalystUserId": "demo-admin", 
+    "Role": "SUPER_ADMIN", 
+    "Active": true 
+  },
+  { 
+    "UserProfileID": 3, 
+    "CatalystUserId": "demo-district", 
+    "Role": "DISTRICT_COMMAND", 
+    "DistrictID": 443,
+    "Active": true 
+  },
+  { 
+    "UserProfileID": 4, 
+    "CatalystUserId": "demo-sho", 
+    "Role": "SHO", 
+    "DistrictID": 443,
+    "UnitID": 60001,
+    "Active": true 
+  },
+  { 
+    "UserProfileID": 5, 
+    "CatalystUserId": "demo-io", 
+    "Role": "IO", 
+    "DistrictID": 443,
+    "UnitID": 60001,
+    "EmployeeID": 10042,
+    "Active": true 
+  }
+]

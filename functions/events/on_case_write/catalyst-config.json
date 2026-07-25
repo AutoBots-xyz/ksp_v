@@ -1,0 +1,6 @@
+{
+  "name": "on_case_write",
+  "type": "event",
+  "category": "Event Function",
+  "description": "Signal: CaseMaster insert/update -> mark aggregates dirty"
+}

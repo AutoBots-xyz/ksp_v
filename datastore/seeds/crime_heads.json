@@ -1,0 +1,11 @@
+[
+  { "CrimeMajorHeadID": 1, "CrimeSubHeadID": 101, "MajorHead": "Cyber Fraud",            "SubHead": "Online financial scam / OTP phishing", "Category": "cyber",    "GravityID": 1, "Active": true },
+  { "CrimeMajorHeadID": 2, "CrimeSubHeadID": 201, "MajorHead": "House Breaking & Theft", "SubHead": "Night burglary forced entry",          "Category": "property", "GravityID": 2, "Active": true },
+  { "CrimeMajorHeadID": 3, "CrimeSubHeadID": 301, "MajorHead": "Robbery / Dacoity",      "SubHead": "Armed robbery at commercial premises","Category": "violent",  "GravityID": 1, "Active": true },
+  { "CrimeMajorHeadID": 4, "CrimeSubHeadID": 401, "MajorHead": "Vehicle Theft",           "SubHead": "Two-wheeler theft from street",        "Category": "property", "GravityID": 3, "Active": true },
+  { "CrimeMajorHeadID": 5, "CrimeSubHeadID": 501, "MajorHead": "Grievous Assault",        "SubHead": "Blade/weapon assault in altercation", "Category": "violent",  "GravityID": 1, "Active": true },
+  { "CrimeMajorHeadID": 6, "CrimeSubHeadID": 601, "MajorHead": "Chain Snatching",         "SubHead": "Two-men bike chain snatch",            "Category": "property", "GravityID": 2, "Active": true },
+  { "CrimeMajorHeadID": 7, "CrimeSubHeadID": 701, "MajorHead": "Cheating",               "SubHead": "Fake job racket advance payment",      "Category": "cyber",    "GravityID": 3, "Active": true },
+  { "CrimeMajorHeadID": 8, "CrimeSubHeadID": 801, "MajorHead": "Murder",                  "SubHead": "Pre-planned contract killing",          "Category": "violent",  "GravityID": 1, "Active": true },
+  { "CrimeMajorHeadID": 9, "CrimeSubHeadID": 901, "MajorHead": "Cattle Theft",           "SubHead": "Interstate cattle lifting",            "Category": "property", "GravityID": 2, "Active": true }
+]

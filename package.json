@@ -1,0 +1,41 @@
+{
+  "name": "ksp-crime-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KSP Crime Intelligence & Analytical Platform (Karnataka State Police) on Zoho Catalyst",
+  "workspaces": [
+    "apps/web",
+    "functions"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "catalyst serve",
+    "dev:web": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed": "tsx scripts/seed-local.ts",
+    "generate-data": "tsx scripts/generate-synthetic-data.ts",
+    "import-fir": "tsx scripts/import-fir-csv.ts",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "brain:index": "codebase-memory-mcp cli index_repository --args-file",
+    "brain:status": "codebase-memory-mcp cli index_status --project D-KSP_PROJECT",
+    "brain:changes": "codebase-memory-mcp cli detect_changes --project D-KSP_PROJECT",
+    "brain:arch": "codebase-memory-mcp cli get_architecture --project D-KSP_PROJECT"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "zcatalyst-sdk-node": "^3.4.0"
+  }
+}

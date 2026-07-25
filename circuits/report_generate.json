@@ -1,0 +1,11 @@
+{
+  "name": "report_generate",
+  "description": "SmartBrowz PDF report generation (sub-phase 5B). NOTE: Circuits is unavailable in EU/AU/IN/JP/SA/CA DCs (https://docs.catalyst.zoho.com/en/serverless/help/circuits/introduction/). If the project DC is IN, reimplement this workflow as Cron-triggered Basic I/O functions chained via Signals, not a Circuit.",
+  "steps": [
+    { "id": "load_data", "type": "function", "desc": "Load template data (scoped)" },
+    { "id": "render_pdf", "type": "smartbrowz", "desc": "SmartBrowz render HTML -> PDF" },
+    { "id": "store", "type": "function", "desc": "Put PDF to Stratus reports/" },
+    { "id": "update_job", "type": "function", "desc": "Update ReportJob status + downloadUrl" },
+    { "id": "notify", "type": "mail", "desc": "Optional Mail on COMPLETE" }
+  ]
+}

@@ -1,0 +1,900 @@
+[
+  {
+    "AccusedCaseID": 1,
+    "CaseMasterID": 1,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "In Remand",
+    "IsDemo": true,
+    "PhoneNumber": "9008012345",
+    "VehicleReg": "KA01MJ990"
+  },
+  {
+    "AccusedCaseID": 2,
+    "CaseMasterID": 5,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "Judicial Custody",
+    "IsDemo": true,
+    "PhoneNumber": "9008012345",
+    "VehicleReg": "KA01MJ991"
+  },
+  {
+    "AccusedCaseID": 3,
+    "CaseMasterID": 6,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "On Bail",
+    "IsDemo": true,
+    "PhoneNumber": "9008023456",
+    "VehicleReg": "KA01MJ992"
+  },
+  {
+    "AccusedCaseID": 4,
+    "CaseMasterID": 9,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Judicial Custody",
+    "IsDemo": true,
+    "PhoneNumber": "9008034567",
+    "VehicleReg": "KA01MJ993"
+  },
+  {
+    "AccusedCaseID": 5,
+    "CaseMasterID": 10,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "Judicial Custody",
+    "IsDemo": true,
+    "PhoneNumber": "9008034567",
+    "VehicleReg": null
+  },
+  {
+    "AccusedCaseID": 6,
+    "CaseMasterID": 13,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "Judicial Custody",
+    "IsDemo": true,
+    "PhoneNumber": "9008045678",
+    "VehicleReg": null
+  },
+  {
+    "AccusedCaseID": 7,
+    "CaseMasterID": 14,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "Absconding",
+    "IsDemo": true,
+    "PhoneNumber": "9008056789",
+    "VehicleReg": null
+  },
+  {
+    "AccusedCaseID": 8,
+    "CaseMasterID": 17,
+    "AccusedID": 5016,
+    "PersonKey": "KA-PER-05016",
+    "PersonName": "Manoj Shetty",
+    "Status": "Judicial Custody",
+    "IsDemo": true,
+    "PhoneNumber": "9008056789",
+    "VehicleReg": null
+  },
+  {
+    "AccusedCaseID": 9,
+    "CaseMasterID": 18,
+    "AccusedID": 5017,
+    "PersonKey": "KA-PER-05017",
+    "PersonName": "Bharath HM",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 10,
+    "CaseMasterID": 22,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 11,
+    "CaseMasterID": 23,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 12,
+    "CaseMasterID": 26,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 13,
+    "CaseMasterID": 27,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 14,
+    "CaseMasterID": 30,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 15,
+    "CaseMasterID": 31,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 16,
+    "CaseMasterID": 34,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 17,
+    "CaseMasterID": 35,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 18,
+    "CaseMasterID": 39,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 19,
+    "CaseMasterID": 40,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 20,
+    "CaseMasterID": 43,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 21,
+    "CaseMasterID": 44,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 22,
+    "CaseMasterID": 47,
+    "AccusedID": 5016,
+    "PersonKey": "KA-PER-05016",
+    "PersonName": "Manoj Shetty",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 23,
+    "CaseMasterID": 48,
+    "AccusedID": 5017,
+    "PersonKey": "KA-PER-05017",
+    "PersonName": "Bharath HM",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 24,
+    "CaseMasterID": 51,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 25,
+    "CaseMasterID": 52,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 26,
+    "CaseMasterID": 56,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 27,
+    "CaseMasterID": 60,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 28,
+    "CaseMasterID": 61,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 29,
+    "CaseMasterID": 64,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 30,
+    "CaseMasterID": 65,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 31,
+    "CaseMasterID": 68,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 32,
+    "CaseMasterID": 69,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 33,
+    "CaseMasterID": 73,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 34,
+    "CaseMasterID": 77,
+    "AccusedID": 5016,
+    "PersonKey": "KA-PER-05016",
+    "PersonName": "Manoj Shetty",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 35,
+    "CaseMasterID": 78,
+    "AccusedID": 5017,
+    "PersonKey": "KA-PER-05017",
+    "PersonName": "Bharath HM",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 36,
+    "CaseMasterID": 81,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 37,
+    "CaseMasterID": 82,
+    "AccusedID": 5021,
+    "PersonKey": "KA-PER-05021",
+    "PersonName": "Sunil Gowda",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 38,
+    "CaseMasterID": 85,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 39,
+    "CaseMasterID": 86,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 40,
+    "CaseMasterID": 89,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 41,
+    "CaseMasterID": 90,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 42,
+    "CaseMasterID": 94,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 43,
+    "CaseMasterID": 95,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 44,
+    "CaseMasterID": 98,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 45,
+    "CaseMasterID": 99,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 46,
+    "CaseMasterID": 102,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 47,
+    "CaseMasterID": 103,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 48,
+    "CaseMasterID": 106,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 49,
+    "CaseMasterID": 107,
+    "AccusedID": 5016,
+    "PersonKey": "KA-PER-05016",
+    "PersonName": "Manoj Shetty",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 50,
+    "CaseMasterID": 111,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 51,
+    "CaseMasterID": 112,
+    "AccusedID": 5021,
+    "PersonKey": "KA-PER-05021",
+    "PersonName": "Sunil Gowda",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 52,
+    "CaseMasterID": 115,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 53,
+    "CaseMasterID": 116,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 54,
+    "CaseMasterID": 119,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 55,
+    "CaseMasterID": 120,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 56,
+    "CaseMasterID": 123,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 57,
+    "CaseMasterID": 124,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 58,
+    "CaseMasterID": 128,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 59,
+    "CaseMasterID": 132,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 60,
+    "CaseMasterID": 133,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 61,
+    "CaseMasterID": 136,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 62,
+    "CaseMasterID": 137,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 63,
+    "CaseMasterID": 140,
+    "AccusedID": 5019,
+    "PersonKey": "KA-PER-05019",
+    "PersonName": "Rahul Verma",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 64,
+    "CaseMasterID": 141,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 65,
+    "CaseMasterID": 145,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 66,
+    "CaseMasterID": 149,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 67,
+    "CaseMasterID": 150,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 68,
+    "CaseMasterID": 153,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 69,
+    "CaseMasterID": 154,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 70,
+    "CaseMasterID": 157,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 71,
+    "CaseMasterID": 158,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 72,
+    "CaseMasterID": 161,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 73,
+    "CaseMasterID": 162,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 74,
+    "CaseMasterID": 166,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 75,
+    "CaseMasterID": 167,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 76,
+    "CaseMasterID": 170,
+    "AccusedID": 5019,
+    "PersonKey": "KA-PER-05019",
+    "PersonName": "Rahul Verma",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 77,
+    "CaseMasterID": 171,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 78,
+    "CaseMasterID": 174,
+    "AccusedID": 5005,
+    "PersonKey": "KA-PER-05005",
+    "PersonName": "Suresh Patel",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 79,
+    "CaseMasterID": 175,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 80,
+    "CaseMasterID": 178,
+    "AccusedID": 5001,
+    "PersonKey": "KA-PER-05001",
+    "PersonName": "Vikram Singh",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 81,
+    "CaseMasterID": 179,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 82,
+    "CaseMasterID": 183,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 83,
+    "CaseMasterID": 184,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 84,
+    "CaseMasterID": 187,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 85,
+    "CaseMasterID": 188,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 86,
+    "CaseMasterID": 191,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 87,
+    "CaseMasterID": 192,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 88,
+    "CaseMasterID": 195,
+    "AccusedID": 5002,
+    "PersonKey": "KA-PER-05002",
+    "PersonName": "Ravi Kumar",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 89,
+    "CaseMasterID": 196,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "In Remand",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 90,
+    "CaseMasterID": 200,
+    "AccusedID": 5019,
+    "PersonKey": "KA-PER-05019",
+    "PersonName": "Rahul Verma",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 91,
+    "CaseMasterID": 201,
+    "AccusedID": 5020,
+    "PersonKey": "KA-PER-05020",
+    "PersonName": "Deepak Jain",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 92,
+    "CaseMasterID": 204,
+    "AccusedID": 5023,
+    "PersonKey": "KA-PER-05023",
+    "PersonName": "Naresh Reddy",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 93,
+    "CaseMasterID": 205,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 94,
+    "CaseMasterID": 208,
+    "AccusedID": 5007,
+    "PersonKey": "KA-PER-05007",
+    "PersonName": "Ganesh Reddy",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 95,
+    "CaseMasterID": 209,
+    "AccusedID": 5000,
+    "PersonKey": "KA-PER-05000",
+    "PersonName": "Sameer Sheikh",
+    "Status": "On Bail",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 96,
+    "CaseMasterID": 212,
+    "AccusedID": 5003,
+    "PersonKey": "KA-PER-05003",
+    "PersonName": "Anil Naik",
+    "Status": "Absconding",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 97,
+    "CaseMasterID": 213,
+    "AccusedID": 5004,
+    "PersonKey": "KA-PER-05004",
+    "PersonName": "Mohan Das",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  },
+  {
+    "AccusedCaseID": 98,
+    "CaseMasterID": 217,
+    "AccusedID": 5006,
+    "PersonKey": "KA-PER-05006",
+    "PersonName": "Imran Khan",
+    "Status": "Judicial Custody",
+    "IsDemo": true
+  }
+]

@@ -1,0 +1,10 @@
+[
+  { "role": "SUPER_ADMIN", "scope": "state", "label": "System administrator" },
+  { "role": "SCRB_ANALYST", "scope": "state", "label": "State Crime Records Bureau" },
+  { "role": "DISTRICT_COMMAND", "scope": "district", "label": "SP / DSP / District HQ" },
+  { "role": "SHO", "scope": "unit", "label": "Station House Officer" },
+  { "role": "IO", "scope": "assigned", "label": "Investigating Officer" },
+  { "role": "DATA_OPERATOR", "scope": "unit", "label": "Data entry / records clerk" },
+  { "role": "AUDITOR", "scope": "configured", "label": "Internal audit / compliance" },
+  { "role": "VIEWER", "scope": "demo", "label": "Guest / training account" }
+]

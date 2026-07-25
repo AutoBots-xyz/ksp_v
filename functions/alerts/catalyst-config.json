@@ -1,0 +1,6 @@
+{
+  "name": "alerts",
+  "type": "advancedio",
+  "category": "Advanced I/O",
+  "description": "Alert list & ack (sub-phase 4D)"
+}

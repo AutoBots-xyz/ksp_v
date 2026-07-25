@@ -1,0 +1,7 @@
+{
+  "name": "auth_context",
+  "type": "basicio",
+  "category": "Basic I/O",
+  "description": "Authenticated profile GET /api/v1/me",
+  "isReponseHeader": false
+}

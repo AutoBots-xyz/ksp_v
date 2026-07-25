@@ -1,0 +1,10 @@
+[
+  { "DistrictID": 443, "DistrictName": "Bengaluru Urban",     "StateID": 29, "Active": true },
+  { "DistrictID": 444, "DistrictName": "Bengaluru Rural",     "StateID": 29, "Active": true },
+  { "DistrictID": 445, "DistrictName": "Mysuru",              "StateID": 29, "Active": true },
+  { "DistrictID": 446, "DistrictName": "Belagavi",            "StateID": 29, "Active": true },
+  { "DistrictID": 447, "DistrictName": "Kalaburagi",          "StateID": 29, "Active": true },
+  { "DistrictID": 448, "DistrictName": "Mangaluru",           "StateID": 29, "Active": true },
+  { "DistrictID": 449, "DistrictName": "Hubballi-Dharwad",    "StateID": 29, "Active": true },
+  { "DistrictID": 450, "DistrictName": "Davanagere",          "StateID": 29, "Active": true }
+]

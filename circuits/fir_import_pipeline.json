@@ -1,0 +1,12 @@
+{
+  "name": "fir_import_pipeline",
+  "description": "Multi-step FIR extract import (sub-phase 1E). NOTE: Circuits is unavailable in EU/AU/IN/JP/SA/CA DCs (https://docs.catalyst.zoho.com/en/serverless/help/circuits/introduction/). If the project DC is IN, reimplement this workflow as Cron-triggered Basic I/O functions chained via Signals, not a Circuit.",
+  "steps": [
+    { "id": "download", "type": "function", "desc": "Download Stratus object from imports/raw/" },
+    { "id": "parse_validate", "type": "function", "desc": "Parse CSV/JSON + validate schema" },
+    { "id": "upsert", "type": "function", "desc": "Batch upsert Data Store by CrimeNo (idempotent)" },
+    { "id": "graph_refresh", "type": "function", "desc": "Rebuild graph_edges for touched persons" },
+    { "id": "aggregate_refresh", "type": "function", "desc": "Recompute AggUnitDay/AggDistrictDay" },
+    { "id": "notify", "type": "mail", "desc": "Mail import summary to admin" }
+  ]
+}

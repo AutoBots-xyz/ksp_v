@@ -1,0 +1,22 @@
+[
+  { "UnitID": 60001, "UnitName": "Whitefield PS",       "DistrictID": 443, "Active": true },
+  { "UnitID": 60002, "UnitName": "Electronic City PS",  "DistrictID": 443, "Active": true },
+  { "UnitID": 60003, "UnitName": "Koramangala PS",       "DistrictID": 443, "Active": true },
+  { "UnitID": 60004, "UnitName": "HSR Layout PS",        "DistrictID": 443, "Active": true },
+  { "UnitID": 60011, "UnitName": "Devanahalli PS",       "DistrictID": 444, "Active": true },
+  { "UnitID": 60012, "UnitName": "Nelamangala PS",       "DistrictID": 444, "Active": true },
+  { "UnitID": 60021, "UnitName": "Mysuru South PS",      "DistrictID": 445, "Active": true },
+  { "UnitID": 60022, "UnitName": "Mysuru West PS",       "DistrictID": 445, "Active": true },
+  { "UnitID": 60023, "UnitName": "Narasimharaja PS",     "DistrictID": 445, "Active": true },
+  { "UnitID": 60031, "UnitName": "Belagavi City PS",     "DistrictID": 446, "Active": true },
+  { "UnitID": 60032, "UnitName": "Belagavi Rural PS",    "DistrictID": 446, "Active": true },
+  { "UnitID": 60041, "UnitName": "Kalaburagi Town PS",   "DistrictID": 447, "Active": true },
+  { "UnitID": 60042, "UnitName": "Kalaburagi Rural PS",  "DistrictID": 447, "Active": true },
+  { "UnitID": 60051, "UnitName": "Mangaluru East PS",    "DistrictID": 448, "Active": true },
+  { "UnitID": 60052, "UnitName": "Mangaluru West PS",    "DistrictID": 448, "Active": true },
+  { "UnitID": 60053, "UnitName": "Surathkal PS",         "DistrictID": 448, "Active": true },
+  { "UnitID": 60061, "UnitName": "Hubballi PS",          "DistrictID": 449, "Active": true },
+  { "UnitID": 60062, "UnitName": "Dharwad PS",           "DistrictID": 449, "Active": true },
+  { "UnitID": 60071, "UnitName": "Davanagere Town PS",   "DistrictID": 450, "Active": true },
+  { "UnitID": 60072, "UnitName": "Davanagere Rural PS",  "DistrictID": 450, "Active": true }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "weekly_model_retrain",
+  "description": "Zia AutoML risk model retrain (sub-phase 4C/5A). NOTE: Zia AutoML is unavailable in EU/AU/IN/JP/SA/CA DCs (https://docs.catalyst.zoho.com/en/zia-services/help/automl/introduction/). If the project DC is IN, redirect this job to a QuickML no-code ML pipeline (no regional restriction) preserving the weekly schedule and input tables. See CATALYST_CONSOLE_RUNBOOK.md Issue 1.",
+  "cron": "0 3 * * 0",
+  "timezone": "Asia/Kolkata",
+  "function": "functions/ai/index.ts",
+  "action": "retrainModel"
+}

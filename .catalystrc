@@ -1,0 +1,31 @@
+{
+  "name": "ksp-crime-intelligence",
+  "id": "ksp-crime-intelligence",
+  "defaults": {
+    "project": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "51894000000025001",
+      "name": "ksp",
+      "domain": {
+        "id": "50044328878",
+        "name": "ksp-60078769806.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60078769806",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}
