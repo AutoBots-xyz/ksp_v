@@ -1,21 +1,35 @@
 /**
- * Catalyst Auth SDK wrapper (conceptual).
+ * Catalyst Auth SDK wrapper.
  * Reference: FRONTEND_ARCHITECTURE.md #4, CATALYST_INTEGRATION.md #2.
  *
- * STUB until 0C: real Catalyst Auth SDK init + session/token handling.
+ * Exposes type-safe helpers over `window.catalyst.auth`.
  */
 declare global {
   interface Window {
-    catalyst?: any;
+    catalyst?: {
+      auth?: {
+        isUserAuthenticated: () => boolean | Promise<boolean>;
+        getCurrentUser: () => Promise<any>;
+        signIn: (containerIdOrUrl: string, config?: Record<string, any>) => void;
+        signOut: (redirectUrl?: string) => void;
+      };
+    };
   }
 }
 
 export const catalystAuth = {
-  isAuthenticated: (): boolean => {
-    if (typeof window === 'undefined') return false;
-    return Boolean(window.catalyst?.auth?.isUserAuthenticated());
+  /** Check whether session is active in browser via Catalyst Auth SDK */
+  isAuthenticated: async (): Promise<boolean> => {
+    if (typeof window === 'undefined' || !window.catalyst?.auth) return false;
+    try {
+      const res = await window.catalyst.auth.isUserAuthenticated();
+      return Boolean(res);
+    } catch {
+      return false;
+    }
   },
 
+  /** Fetch current authenticated user details from Catalyst SDK */
   getCurrentUser: async () => {
     if (typeof window === 'undefined' || !window.catalyst?.auth) {
       return null;
@@ -28,20 +42,22 @@ export const catalystAuth = {
     }
   },
 
-  signIn: async (redirectUrl: string = '/hub') => {
+  /** Render embedded iframe login or invoke signIn redirect */
+  signIn: (containerIdOrUrl: string = 'loginDivElementId', config?: Record<string, any>) => {
     if (typeof window !== 'undefined') {
       if (window.catalyst?.auth) {
-        window.catalyst.auth.signIn(redirectUrl);
+        window.catalyst.auth.signIn(containerIdOrUrl, config);
       } else if (process.env.NODE_ENV !== 'production') {
-        // Local dev fallback only (non-production environment)
-        window.location.href = redirectUrl;
+        const targetUrl = typeof config?.service_url === 'string' ? config.service_url : '/hub';
+        window.location.href = targetUrl;
       } else {
         console.error('Catalyst Auth SDK not loaded in production environment.');
       }
     }
   },
 
-  signOut: async (redirectUrl: string = '/login') => {
+  /** Sign out and redirect */
+  signOut: (redirectUrl: string = '/login') => {
     if (typeof window !== 'undefined') {
       if (window.catalyst?.auth) {
         window.catalyst.auth.signOut(redirectUrl);
@@ -51,4 +67,3 @@ export const catalystAuth = {
     }
   },
 };
-
