@@ -1,10 +1,3 @@
-Here is the complete, corrected file. 
-
-The Next.js App Router build errors occur because `useSearchParams()` opts the entire route into client-side rendering, which breaks static prerendering if it's not wrapped in a `<Suspense>` boundary. 
-
-To fix this, I imported `Suspense` from React, created a default exported `DistrictPage` wrapper that contains the `<Suspense fallback={<div>Loading...</div>}>`, and moved all your original logic into a child component named `DistrictPageContent`. I also removed an extra closing brace `}` at the very end of the original file that would have caused a syntax error.
-
-```tsx
 'use client';
 
 import { Suspense, useState, useEffect, useMemo } from 'react';
