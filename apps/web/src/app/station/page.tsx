@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { Button } from '@/components/ui/button';
@@ -48,7 +48,16 @@ const INCIDENT_PINS: IncidentPin[] = [
   { id: 'PIN-3', location: 'Prashanth Layout, Gate 2', beat: 'Beat #1', type: 'Night Patrol Alarm Trigger', time: '2 hours ago', severity: 'LOW', io: 'SI Venkatesh' },
 ];
 
+// Main Export: Wraps the content in a Suspense boundary to satisfy Next.js App Router requirements for useSearchParams()
 export default function StationPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <StationPageContent />
+    </Suspense>
+  );
+}
+
+function StationPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryStation = searchParams.get('station');
@@ -320,3 +329,4 @@ export default function StationPage() {
     </AppShell>
   );
 }
+```
