@@ -1,6 +1,13 @@
+Here is the complete, corrected file. 
+
+The Next.js App Router build errors occur because `useSearchParams()` opts the entire route into client-side rendering, which breaks static prerendering if it's not wrapped in a `<Suspense>` boundary. 
+
+To fix this, I imported `Suspense` from React, created a default exported `DistrictPage` wrapper that contains the `<Suspense fallback={<div>Loading...</div>}>`, and moved all your original logic into a child component named `DistrictPageContent`. I also removed an extra closing brace `}` at the very end of the original file that would have caused a syntax error.
+
+```tsx
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { Suspense, useState, useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { Button } from '@/components/ui/button';
@@ -12,6 +19,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import dynamic from 'next/dynamic';
 import { SampleDataBanner } from '@/components/ui/sample-data-banner';
 import { api, type SocioCorrelationRow } from '@/lib/api-client';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
+import { MapPin, Search, RotateCcw, PenTool, Activity, Send, AlertTriangle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const DistrictMap = dynamic(
   () => import('@/components/district-map').then((mod) => ({ default: mod.DistrictMap })),
@@ -24,9 +34,6 @@ const DistrictMap = dynamic(
     ),
   }
 );
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
-import { MapPin, Search, RotateCcw, PenTool, Activity, Send, AlertTriangle } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface StationRank {
   id: string;
@@ -87,7 +94,16 @@ const INVESTIGATORS: IOOverview[] = [
   { id: 'IO-205', name: 'Sub-Inspector Anand Patil', designation: 'PSI', station: 'Marathahalli PS', caseCount: 28, overdueCount: 7, workload: 'HIGH' },
 ];
 
+// Main Export: Wraps the content in a Suspense boundary to satisfy Next.js App Router requirements for useSearchParams()
 export default function DistrictPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DistrictPageContent />
+    </Suspense>
+  );
+}
+
+function DistrictPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryDistrict = searchParams.get('district');
@@ -646,3 +662,4 @@ export default function DistrictPage() {
     </AppShell>
   );
 }
+```
