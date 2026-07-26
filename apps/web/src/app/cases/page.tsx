@@ -201,11 +201,11 @@ export default function CasesPage() {
 
   return (
     <AppShell title="Case 360° View" scope="State-wide">
-      <div className="flex h-[calc(100vh-140px)] gap-6 overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-auto lg:h-[calc(100vh-140px)] gap-4 lg:gap-6 overflow-visible lg:overflow-hidden">
         
         {/* Left Side: Case Directory List */}
-        <Card className="w-1/3 flex flex-col overflow-hidden border-border bg-card shadow-none rounded-none">
-          <div className="flex-none p-4 border-b border-border space-y-4 bg-secondary/20">
+        <Card className="w-full lg:w-1/3 flex flex-col overflow-hidden border-border bg-card shadow-none rounded-none max-h-96 lg:max-h-none">
+          <div className="flex-none p-3 sm:p-4 border-b border-border space-y-3 sm:space-y-4 bg-secondary/20">
             <div className="flex items-center justify-between">
               <h2 className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground font-bold">Active Case Directory</h2>
               <Button size="icon" variant="ghost" onClick={() => setShowNewCaseModal(true)} title="Register New FIR">
@@ -222,7 +222,7 @@ export default function CasesPage() {
                 className="pl-9 h-9"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <select
                 value={gravityFilter}
                 onChange={(e) => setGravityFilter(e.target.value)}
@@ -236,7 +236,7 @@ export default function CasesPage() {
                 variant={hidePii ? 'destructive' : 'outline'}
                 size="sm"
                 onClick={() => setHidePii(!hidePii)}
-                className="h-7 text-xs flex-1"
+                className="h-7 text-xs flex-1 sm:flex-initial"
               >
                 {hidePii ? <EyeOff className="h-3 w-3 mr-1" /> : <Eye className="h-3 w-3 mr-1" />}
                 {hidePii ? 'PII Hidden' : 'Mask PII'}
@@ -276,55 +276,55 @@ export default function CasesPage() {
         </Card>
 
         {/* Right Side: Detailed 360° Case View */}
-        <Card className="w-2/3 flex flex-col overflow-hidden border-border bg-card shadow-none rounded-none">
+        <Card className="w-full lg:w-2/3 flex flex-col overflow-hidden border-border bg-card shadow-none rounded-none">
           
           {/* Header Banner */}
-          <div className="flex-none border-b border-border p-6 bg-background relative overflow-hidden">
-            <div className="absolute right-0 top-0 opacity-5 w-64 h-64 -mt-10 -mr-10">
+          <div className="flex-none border-b border-border p-4 sm:p-6 bg-background relative overflow-hidden">
+            <div className="absolute right-0 top-0 opacity-5 w-48 sm:w-64 h-48 sm:h-64 -mt-10 -mr-10">
               <ShieldAlert className="w-full h-full text-foreground" />
             </div>
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="bg-primary px-2 py-1 font-mono text-sm font-bold text-primary-foreground shadow-sm">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                <span className="bg-primary px-2 py-1 font-mono text-xs sm:text-sm font-bold text-primary-foreground shadow-sm">
                   {selectedCase.crimeNo}
                 </span>
                 <RiskBadge level={selectedCase.status} />
               </div>
-              <h1 className="text-2xl font-extrabold text-foreground tracking-tight">{selectedCase.title}</h1>
-              <div className="mt-3 flex flex-wrap gap-4 text-xs font-medium text-muted-foreground">
-                <div className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {selectedCase.station}, {selectedCase.district}</div>
-                <div className="flex items-center gap-1"><Users className="h-3.5 w-3.5" /> IO: {selectedCase.ioName}</div>
-                <div className="flex items-center gap-1 text-destructive"><ShieldAlert className="h-3.5 w-3.5" /> Due: {selectedCase.statutoryDueDate}</div>
+              <h1 className="text-lg sm:text-2xl font-extrabold text-foreground tracking-tight">{selectedCase.title}</h1>
+              <div className="mt-3 flex flex-wrap gap-2 sm:gap-4 text-[11px] sm:text-xs font-medium text-muted-foreground">
+                <div className="flex items-center gap-1"><MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> {selectedCase.station}, {selectedCase.district}</div>
+                <div className="flex items-center gap-1"><Users className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> IO: {selectedCase.ioName}</div>
+                <div className="flex items-center gap-1 text-destructive"><ShieldAlert className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Due: {selectedCase.statutoryDueDate}</div>
               </div>
             </div>
           </div>
 
           {/* Radix Tabs for Case Details */}
           <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
-            <TabsList className="w-full justify-start rounded-none border-b bg-transparent px-6 py-0 h-12">
-              <TabsTrigger value="summary" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <FileText className="h-3.5 w-3.5 mr-2" /> Summary
+            <TabsList className="w-full justify-start rounded-none border-b bg-transparent px-4 sm:px-6 py-0 h-12 overflow-x-auto hide-scrollbar">
+              <TabsTrigger value="summary" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <FileText className="h-3.5 w-3.5 mr-1 sm:mr-2" /> Summary
               </TabsTrigger>
-              <TabsTrigger value="people" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <Users className="h-3.5 w-3.5 mr-2" /> People Involved
+              <TabsTrigger value="people" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <Users className="h-3.5 w-3.5 mr-1 sm:mr-2" /> People
               </TabsTrigger>
-              <TabsTrigger value="legal" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <Scale className="h-3.5 w-3.5 mr-2" /> Sections
+              <TabsTrigger value="legal" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <Scale className="h-3.5 w-3.5 mr-1 sm:mr-2" /> Sections
               </TabsTrigger>
-              <TabsTrigger value="process" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <ServerCog className="h-3.5 w-3.5 mr-2" /> Evidence
+              <TabsTrigger value="process" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <ServerCog className="h-3.5 w-3.5 mr-1 sm:mr-2" /> Evidence
               </TabsTrigger>
-              <TabsTrigger value="location" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <Globe className="h-3.5 w-3.5 mr-2" /> GIS Mapping
+              <TabsTrigger value="location" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <Globe className="h-3.5 w-3.5 mr-1 sm:mr-2" /> GIS
               </TabsTrigger>
-              <TabsTrigger value="audit" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-4">
-                <History className="h-3.5 w-3.5 mr-2" /> Audit Trail
+              <TabsTrigger value="audit" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none h-full bg-transparent px-3 sm:px-4 shrink-0">
+                <History className="h-3.5 w-3.5 mr-1 sm:mr-2" /> Audit
               </TabsTrigger>
             </TabsList>
 
             <div className="flex-1 overflow-y-auto p-6 bg-background">
               <TabsContent value="summary" className="m-0 space-y-6 outline-none">
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-xs font-bold uppercase text-muted-foreground mb-1 border-b pb-1">Primary Classification</h4>
@@ -428,10 +428,10 @@ export default function CasesPage() {
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg rounded-2xl border bg-card p-6 shadow-2xl"
+              className="relative w-full max-w-lg rounded-2xl border bg-card p-4 sm:p-6 shadow-2xl mx-auto"
             >
               <div className="mb-4 border-b pb-4">
-                <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" /> Register New Case (FIR)
                 </h3>
               </div>
@@ -444,7 +444,7 @@ export default function CasesPage() {
                   <label className="text-sm font-medium text-foreground">Case Title</label>
                   <Input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} required />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Major Head</label>
                     <Input type="text" value={newMajorHead} onChange={(e) => setNewMajorHead(e.target.value)} required />
@@ -454,9 +454,9 @@ export default function CasesPage() {
                     <Input type="text" value={newSections} onChange={(e) => setNewSections(e.target.value)} required />
                   </div>
                 </div>
-                <div className="flex justify-end gap-3 pt-4 border-t">
-                  <Button variant="outline" type="button" onClick={() => setShowNewCaseModal(false)}>Cancel</Button>
-                  <Button type="submit">Register FIR</Button>
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-4 border-t">
+                  <Button variant="outline" type="button" onClick={() => setShowNewCaseModal(false)} className="w-full sm:w-auto">Cancel</Button>
+                  <Button type="submit" className="w-full sm:w-auto">Register FIR</Button>
                 </div>
               </form>
             </motion.div>

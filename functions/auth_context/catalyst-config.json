@@ -3,5 +3,8 @@
   "type": "basicio",
   "category": "Basic I/O",
   "description": "Authenticated profile GET /api/v1/me",
-  "isReponseHeader": false
+  "isReponseHeader": false,
+  "stack": "node20",
+  "main": "index.js",
+  "path": "index.js"
 }

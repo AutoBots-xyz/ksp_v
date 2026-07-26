@@ -122,7 +122,7 @@ export function DistrictMap({
   }
 
   return (
-    <div className={className} style={{ height: 420, width: '100%' }}>
+    <div className={className} style={{ height: '50vh', minHeight: 300, maxHeight: 500, width: '100%' }}>
       <MapContainer center={KARNATAKA_CENTER} zoom={6} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

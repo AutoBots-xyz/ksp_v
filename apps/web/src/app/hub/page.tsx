@@ -144,10 +144,10 @@ export default function HubPage() {
       />
 
       {/* Top Filter Bar */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-sm">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-4 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-sm">
         
         {/* Left Side Controls */}
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
           <div className="flex items-center gap-2">
             <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground font-mono">TIMEFRAME:</span>
             <div className="flex rounded-none bg-secondary/50 p-1 border border-border/50">
@@ -155,7 +155,7 @@ export default function HubPage() {
                 <button
                   key={range}
                   onClick={() => setSelectedRange(range)}
-                  className={`rounded-none px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest transition-all ${
+                  className={`rounded-none px-2 sm:px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest transition-all ${
                     selectedRange === range ? 'bg-background text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground border border-transparent'
                   }`}
                 >
@@ -172,7 +172,7 @@ export default function HubPage() {
             <select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="rounded-none border-b-2 border-border bg-transparent px-3 py-1 text-sm font-bold text-foreground focus:outline-none focus:border-primary font-mono uppercase"
+              className="rounded-none border-b-2 border-border bg-transparent px-2 sm:px-3 py-1 text-sm font-bold text-foreground focus:outline-none focus:border-primary font-mono uppercase"
             >
               <option value="ALL">All Districts (State)</option>
               {DISTRICT_DATA.map((d) => (
@@ -183,18 +183,18 @@ export default function HubPage() {
         </div>
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" onClick={() => setSelectedDistrict('ALL')}>
-            <RotateCcw className="mr-2 h-4 w-4" /> Reset Filters
+        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto sm:justify-end">
+          <Button variant="outline" size="sm" onClick={() => setSelectedDistrict('ALL')} className="text-xs">
+            <RotateCcw className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Reset
           </Button>
-          <Button size="sm" onClick={() => setShowBroadcastModal(true)}>
-            <Megaphone className="mr-2 h-4 w-4" /> Broadcast Advisory
+          <Button size="sm" onClick={() => setShowBroadcastModal(true)} className="text-xs">
+            <Megaphone className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Broadcast
           </Button>
         </div>
       </div>
 
       {/* 4-Card KPI Grid */}
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-6 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
         
         <div onClick={() => router.push('/cases')} className="cursor-pointer">
           <MetricCard
@@ -420,20 +420,20 @@ export default function HubPage() {
               className="absolute inset-0 bg-background/80 backdrop-blur-sm"
               onClick={() => setShowBroadcastModal(false)}
             />
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", duration: 0.3 }}
-              className="relative w-full max-w-lg rounded-2xl border bg-card p-6 shadow-2xl"
-            >
-              <div className="mb-4 flex flex-col space-y-1.5 border-b pb-4">
-                <h3 className="text-lg font-bold text-foreground tracking-tight">Broadcast SCRB Intelligence Advisory</h3>
-                <p className="text-sm text-muted-foreground">Distribute state advisory to District Command & SHO units.</p>
-              </div>
+              <motion.div 
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ type: "spring", duration: 0.3 }}
+                className="relative w-full max-w-lg rounded-2xl border bg-card p-4 sm:p-6 shadow-2xl mx-auto"
+              >
+                <div className="mb-4 flex flex-col space-y-1.5 border-b pb-4">
+                  <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">Broadcast SCRB Intelligence Advisory</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Distribute state advisory to District Command & SHO units.</p>
+                </div>
 
-              <form onSubmit={handleBroadcastSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <form onSubmit={handleBroadcastSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium leading-none text-foreground">Target District</label>
                     <select
@@ -482,11 +482,11 @@ export default function HubPage() {
                   />
                 </div>
 
-                <div className="flex justify-end gap-3 border-t pt-4">
-                  <Button variant="outline" type="button" onClick={() => setShowBroadcastModal(false)}>
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 border-t pt-4">
+                  <Button variant="outline" type="button" onClick={() => setShowBroadcastModal(false)} className="w-full sm:w-auto">
                     Cancel
                   </Button>
-                  <Button type="submit">
+                  <Button type="submit" className="w-full sm:w-auto">
                     <Megaphone className="mr-2 h-4 w-4" /> Send Broadcast
                   </Button>
                 </div>

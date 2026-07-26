@@ -7,7 +7,7 @@ export declare class CaseRepository {
     list(scope: Scope, filters: {
         fromDate?: string | null;
         toDate?: string | null;
-        category?: string | null;
+        category?: string | number | null;
     }): Promise<any>;
     create(caseData: any, scope: Scope): Promise<any>;
 }

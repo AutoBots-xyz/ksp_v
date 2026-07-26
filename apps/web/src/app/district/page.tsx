@@ -18,7 +18,7 @@ const DistrictMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[500px] w-full animate-pulse rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+      <div className="h-[50vh] min-h-[300px] w-full animate-pulse rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
         Loading interactive map...
       </div>
     ),
@@ -257,18 +257,18 @@ export default function DistrictPage() {
       />
 
       {/* Top Controls Header */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-sm">
-        <div className="flex items-center gap-3">
-          <span className="flex h-3 w-3 rounded-full bg-primary animate-pulse" />
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-sm">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <span className="flex h-3 w-3 rounded-full bg-primary animate-pulse shrink-0" />
           <span className="text-sm font-bold text-foreground">District Oversight Command</span>
-          <Badge variant="secondary">{districtCases.length} cases in view</Badge>
+          <Badge variant="secondary">{districtCases.length} cases</Badge>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <select
             value={selectedSubDiv}
             onChange={(e) => setSelectedSubDiv(e.target.value)}
-            className="rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            className="rounded-md border border-input bg-background px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="ALL">All Sub-Divisions</option>
             <option value="Whitefield Sub-Div">Whitefield Sub-Div</option>
@@ -277,23 +277,23 @@ export default function DistrictPage() {
             <option value="Halasuru Sub-Div">Halasuru Sub-Div</option>
           </select>
 
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-initial min-w-0">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Search station or IO..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-9 w-64"
+              className="pl-9 h-9 w-full sm:w-48"
             />
           </div>
 
-          <Button variant="outline" size="sm" onClick={handleResetFilters}>
-            <RotateCcw className="mr-2 h-4 w-4" /> Reset
+          <Button variant="outline" size="sm" onClick={handleResetFilters} className="text-xs">
+            <RotateCcw className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Reset
           </Button>
 
-          <Button size="sm" onClick={() => setShowDirectiveModal(true)}>
-            <PenTool className="mr-2 h-4 w-4" /> Issue Directive
+          <Button size="sm" onClick={() => setShowDirectiveModal(true)} className="text-xs">
+            <PenTool className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Directive
           </Button>
         </div>
       </div>
@@ -323,10 +323,10 @@ export default function DistrictPage() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
         
         {/* Left Side: District Summary */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle>District Health</CardTitle>
@@ -396,44 +396,46 @@ export default function DistrictPage() {
                   <CardDescription>Track the performance and case load of subordinate Police Stations.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Station Name</TableHead>
-                        <TableHead>Sub-Division</TableHead>
-                        <TableHead className="text-right">Open FIRs</TableHead>
-                        <TableHead className="text-right">Overdue Cases</TableHead>
-                        <TableHead className="text-right">Solve Rate</TableHead>
-                        <TableHead className="text-center">Status</TableHead>
-                        <TableHead></TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredStations.map((station) => (
-                        <TableRow key={station.id}>
-                          <TableCell className="font-bold text-foreground">
-                            {station.name}
-                          </TableCell>
-                          <TableCell className="text-muted-foreground">{station.subDivision}</TableCell>
-                          <TableCell className="text-right font-bold">{station.openCases}</TableCell>
-                          <TableCell className={`text-right font-bold ${station.overdueCases > 15 ? 'text-destructive' : 'text-foreground'}`}>
-                            {station.overdueCases}
-                          </TableCell>
-                          <TableCell className="text-right font-bold text-emerald-500">{station.solveRate}%</TableCell>
-                          <TableCell className="text-center">
-                            <Badge variant={station.status === 'ATTENTION' ? 'destructive' : station.status === 'STABLE' ? 'secondary' : 'success'}>
-                              {station.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" onClick={() => setSelectedStationFilter(station.name)}>
-                              Drill Down
-                            </Button>
-                          </TableCell>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Station Name</TableHead>
+                          <TableHead>Sub-Division</TableHead>
+                          <TableHead className="text-right">Open FIRs</TableHead>
+                          <TableHead className="text-right">Overdue Cases</TableHead>
+                          <TableHead className="text-right">Solve Rate</TableHead>
+                          <TableHead className="text-center">Status</TableHead>
+                          <TableHead></TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredStations.map((station) => (
+                          <TableRow key={station.id}>
+                            <TableCell className="font-bold text-foreground whitespace-nowrap">
+                              {station.name}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground whitespace-nowrap">{station.subDivision}</TableCell>
+                            <TableCell className="text-right font-bold">{station.openCases}</TableCell>
+                            <TableCell className={`text-right font-bold ${station.overdueCases > 15 ? 'text-destructive' : 'text-foreground'}`}>
+                              {station.overdueCases}
+                            </TableCell>
+                            <TableCell className="text-right font-bold text-emerald-500">{station.solveRate}%</TableCell>
+                            <TableCell className="text-center">
+                              <Badge variant={station.status === 'ATTENTION' ? 'destructive' : station.status === 'STABLE' ? 'secondary' : 'success'}>
+                                {station.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Button variant="ghost" size="sm" onClick={() => setSelectedStationFilter(station.name)}>
+                                Drill
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -445,37 +447,39 @@ export default function DistrictPage() {
                   <CardDescription>Monitor assigned cases and overdue investigations per officer across the district.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Officer Name & Rank</TableHead>
-                        <TableHead>Station Unit</TableHead>
-                        <TableHead className="text-right">Assigned Cases</TableHead>
-                        <TableHead className="text-right">Overdue (60+ Days)</TableHead>
-                        <TableHead className="text-center">Workload Rating</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredIOs.map((io) => (
-                        <TableRow key={io.id}>
-                          <TableCell>
-                            <div className="font-bold text-foreground">{io.name}</div>
-                            <div className="text-[10px] text-muted-foreground">{io.designation} | {io.id}</div>
-                          </TableCell>
-                          <TableCell className="text-primary font-medium">{io.station}</TableCell>
-                          <TableCell className="text-right font-bold">{io.caseCount}</TableCell>
-                          <TableCell className={`text-right font-bold ${io.overdueCount > 4 ? 'text-destructive' : 'text-foreground'}`}>
-                            {io.overdueCount}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            <Badge variant={io.workload === 'OPTIMAL' ? 'success' : io.workload === 'BALANCED' ? 'secondary' : 'destructive'}>
-                              {io.workload}
-                            </Badge>
-                          </TableCell>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Officer Name & Rank</TableHead>
+                          <TableHead>Station Unit</TableHead>
+                          <TableHead className="text-right">Assigned Cases</TableHead>
+                          <TableHead className="text-right">Overdue (60+ Days)</TableHead>
+                          <TableHead className="text-center">Workload Rating</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredIOs.map((io) => (
+                          <TableRow key={io.id}>
+                            <TableCell className="whitespace-nowrap">
+                              <div className="font-bold text-foreground">{io.name}</div>
+                              <div className="text-[10px] text-muted-foreground">{io.designation} | {io.id}</div>
+                            </TableCell>
+                            <TableCell className="text-primary font-medium whitespace-nowrap">{io.station}</TableCell>
+                            <TableCell className="text-right font-bold">{io.caseCount}</TableCell>
+                            <TableCell className={`text-right font-bold ${io.overdueCount > 4 ? 'text-destructive' : 'text-foreground'}`}>
+                              {io.overdueCount}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <Badge variant={io.workload === 'OPTIMAL' ? 'success' : io.workload === 'BALANCED' ? 'secondary' : 'destructive'}>
+                                {io.workload}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -554,7 +558,7 @@ export default function DistrictPage() {
                         </div>
                       )}
 
-                      <div className="rounded-xl border p-4 bg-card">
+                      <div className="rounded-xl border p-3 sm:p-4 bg-card">
                         <div className="font-bold text-sm mb-3">District-wise Crime vs Socio-Economic Indicators</div>
                         <div className="overflow-x-auto">
                           <Table>
@@ -570,7 +574,7 @@ export default function DistrictPage() {
                             <TableBody>
                               {socioData.map((row) => (
                                 <TableRow key={row.districtId}>
-                                  <TableCell className="font-bold">{row.districtName}</TableCell>
+                                  <TableCell className="font-bold whitespace-nowrap">{row.districtName}</TableCell>
                                   <TableCell className="text-right font-mono">{row.crimeCount}</TableCell>
                                   <TableCell className="text-right font-mono">{row.urbanizationPct}</TableCell>
                                   <TableCell className="text-right font-mono">{row.literacyRate}</TableCell>
@@ -600,10 +604,10 @@ export default function DistrictPage() {
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg rounded-2xl border bg-card p-6 shadow-2xl"
+              className="relative w-full max-w-lg rounded-2xl border bg-card p-4 sm:p-6 shadow-2xl mx-auto"
             >
               <div className="mb-4 border-b pb-4">
-                <h3 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                   <PenTool className="h-5 w-5" /> Issue Operational Directive
                 </h3>
               </div>
@@ -630,9 +634,9 @@ export default function DistrictPage() {
                     className="min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
-                <div className="flex justify-end gap-3 pt-4 border-t">
-                  <Button variant="outline" type="button" onClick={() => setShowDirectiveModal(false)}>Cancel</Button>
-                  <Button type="submit"><Send className="mr-2 h-4 w-4" /> Issue Directive</Button>
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-4 border-t">
+                  <Button variant="outline" type="button" onClick={() => setShowDirectiveModal(false)} className="w-full sm:w-auto">Cancel</Button>
+                  <Button type="submit" className="w-full sm:w-auto"><Send className="mr-2 h-4 w-4" /> Issue Directive</Button>
                 </div>
               </form>
             </motion.div>

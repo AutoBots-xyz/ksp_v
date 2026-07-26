@@ -3,5 +3,8 @@
   "type": "basicio",
   "category": "Basic I/O",
   "description": "Public health check GET /api/v1/health",
-  "isReponseHeader": false
+  "isReponseHeader": false,
+  "stack": "node20",
+  "main": "index.js",
+  "path": "index.js"
 }

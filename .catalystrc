@@ -2,10 +2,11 @@
   "name": "ksp-crime-intelligence",
   "id": "ksp-crime-intelligence",
   "defaults": {
-    "project": 1
+    "project": 3,
+    "env": 1
   },
   "actives": {
-    "project": 1,
+    "project": 3,
     "env": 1
   },
   "projects": [
@@ -23,7 +24,67 @@
           "idx": 1,
           "id": "60078769806",
           "name": "Development",
-          "type": 3
+          "type": 3,
+          "env_status": "Active",
+          "project_details": {
+            "project_name": "ksp",
+            "id": "51894000000025001",
+            "project_type": "Live"
+          },
+          "is_default": true,
+          "action_required": false
+        }
+      ]
+    },
+    {
+      "idx": 2,
+      "id": "51894000000013024",
+      "name": "Project-Rainfall",
+      "domain": {
+        "id": "50044102702",
+        "name": "project-rainfall-60078769806.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60078769806",
+          "name": "Development",
+          "type": 3,
+          "env_status": "Active",
+          "project_details": {
+            "project_name": "Project-Rainfall",
+            "id": "51894000000013024",
+            "project_type": "Live"
+          },
+          "is_default": true,
+          "action_required": false
+        }
+      ]
+    },
+    {
+      "idx": 3,
+      "id": "51894000000027013",
+      "name": "ksp",
+      "domain": {
+        "id": "50044349383",
+        "name": "ksp-60078769806.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60078769806",
+          "name": "Development",
+          "type": 3,
+          "env_status": "Active",
+          "project_details": {
+            "project_name": "ksp",
+            "id": "51894000000027013",
+            "project_type": "Live"
+          },
+          "is_default": true,
+          "action_required": false
         }
       ]
     }

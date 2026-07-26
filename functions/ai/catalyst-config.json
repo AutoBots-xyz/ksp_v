@@ -2,5 +2,8 @@
   "name": "ai",
   "type": "advancedio",
   "category": "Advanced I/O",
-  "description": "Risk scores & anomalies (sub-phase 4C)"
+  "description": "Risk scores & anomalies (sub-phase 4C)",
+  "stack": "node20",
+  "main": "index.js",
+  "path": "index.js"
 }

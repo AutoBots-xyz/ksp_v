@@ -100,30 +100,30 @@ export default function PredictPage() {
       />
       {/* Toast Notification Banner */}
       {toastMsg && (
-        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between animate-bounce">
-          <span>{toastMsg}</span>
-          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold">
+        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3 sm:p-4 text-[10px] sm:text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between">
+          <span className="flex-1">{toastMsg}</span>
+          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold ml-2 shrink-0">
             ✕
           </button>
         </div>
       )}
 
       {/* ModelTrustBar Header Component */}
-      <div className="mb-6 rounded-xl border border-ksp-blue/20 bg-gradient-to-r from-ksp-navy to-ksp-blue p-5 text-white shadow-md">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
+      <div className="mb-6 rounded-xl border border-ksp-blue/20 bg-gradient-to-r from-ksp-navy to-ksp-blue p-4 sm:p-5 text-white shadow-md">
+        <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="w-full sm:w-auto">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-xs font-bold text-emerald-300">
-                Model: {modelVersion ?? 'QuickML (pending deployment)'}
+              <span className="rounded bg-emerald-500/20 border border-emerald-400/40 px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-bold text-emerald-300">
+                Model: {modelVersion ?? 'QuickML (pending)'}
               </span>
-              <span className="text-xs text-slate-300">
-                Trained: {lastTrained ?? 'not yet — see docs/QUICKML_PREDICTIVE_SETUP.md'}
+              <span className="text-[11px] sm:text-xs text-slate-300">
+                Trained: {lastTrained ?? 'not yet'}
               </span>
             </div>
-            <h2 className="mt-2 text-lg font-bold">Predictive Risk & Anomaly Intelligence Engine</h2>
+            <h2 className="mt-2 text-base sm:text-lg font-bold">Predictive Risk & Anomaly Intelligence Engine</h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-200">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-semibold text-slate-200">
             <div className="text-right">
               <div className="text-emerald-400 font-bold text-base">{zonesLoading ? '…' : riskZones.length}</div>
               <div className="text-[10px] text-slate-300">Active Anomalies</div>
@@ -145,18 +145,18 @@ export default function PredictPage() {
         </div>
 
         {/* Mandatory Legal Disclaimer Banner */}
-        <div className="mt-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3 text-xs text-amber-200 flex items-start gap-2">
-          <span className="text-amber-400 text-sm font-bold">⚠️</span>
+        <div className="mt-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3 text-[10px] sm:text-xs text-amber-200 flex items-start gap-2">
+          <span className="text-amber-400 text-sm font-bold shrink-0">⚠️</span>
           <div>
-            <strong className="text-amber-300">Legal Disclaimer & Compliance:</strong> Analytical risk scores and anomaly call-outs are statistical estimates generated for preventive patrol resource allocation and operational planning — <span className="underline font-bold">they do NOT constitute formal evidence or criminal charges</span>.
+            <strong className="text-amber-300">Legal Disclaimer:</strong> Analytical risk scores and anomaly call-outs are statistical estimates for preventive patrol resource allocation — <span className="underline font-bold">they do NOT constitute formal evidence or criminal charges</span>.
           </div>
         </div>
       </div>
 
       {/* Filter Controls Bar */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-100">
-        <div className="flex flex-1 items-center gap-3 min-w-[280px]">
-          <div className="relative w-full max-w-sm">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-gray-100">
+        <div className="flex flex-1 flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="relative w-full sm:max-w-xs">
             <input
               type="text"
               placeholder="Search Zone, Category or Station..."
@@ -175,7 +175,7 @@ export default function PredictPage() {
                   key={lvl}
                   type="button"
                   onClick={() => setSelectedLevel(lvl)}
-                  className={`rounded-md px-2.5 py-1 transition-all ${
+                  className={`rounded-md px-2 sm:px-2.5 py-1 transition-all ${
                     selectedLevel === lvl ? 'bg-ksp-navy text-white shadow-sm' : 'text-gray-500'
                   }`}
                 >
@@ -203,9 +203,9 @@ export default function PredictPage() {
       </div>
 
       {/* Main Layout: Ranked Risk List + Anomaly Call-Out Detail Inspector */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Ranked Risk List (Left 7 Cols) */}
-        <div className="lg:col-span-7 rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+        {/* Ranked Risk List */}
+        <div className="flex-1 rounded-xl border border-gray-100 bg-white p-3 sm:p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-base font-bold text-ksp-navy">
               Ranked Risk Zones <span className="text-xs font-normal text-gray-400">({filteredZones.length} Flagged)</span>
@@ -274,8 +274,8 @@ export default function PredictPage() {
           </div>
         </div>
 
-        {/* Anomaly & Emerging Call-Out Detail Inspector (Right 5 Cols) */}
-        <div className="lg:col-span-5 rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+        {/* Anomaly & Emerging Call-Out Detail Inspector */}
+        <div className="w-full lg:w-96 rounded-xl border border-gray-100 bg-white p-3 sm:p-5 shadow-sm">
           {selectedZone ? (
           <>
           <div className="mb-4 border-b border-gray-100 pb-3">
@@ -338,7 +338,7 @@ export default function PredictPage() {
       {/* Modal: Fine-Tune Model Weights & Retrain */}
       {showRetrainModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-xl bg-white p-4 sm:p-6 shadow-xl mx-auto">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div>
                 <h3 className="text-base font-bold text-ksp-navy">Fine-Tune Risk Model Parameters</h3>
@@ -399,17 +399,17 @@ export default function PredictPage() {
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-gray-100">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setShowRetrainModal(false)}
-                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200"
+                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md"
+                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md w-full sm:w-auto"
                 >
                   Trigger Retrain & Update Weights
                 </button>

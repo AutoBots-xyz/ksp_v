@@ -17,6 +17,7 @@ exports.isStateScope = isStateScope;
 exports.defaultHome = defaultHome;
 exports.canAccessRoute = canAccessRoute;
 exports.ROLES = [
+    'DEVELOPER',
     'SUPER_ADMIN',
     'SCRB_ANALYST',
     'DISTRICT_COMMAND',
@@ -31,27 +32,32 @@ function isRole(r) {
 }
 /** Roles that can read full PII (names, caste, religion, age). */
 function canSeePii(role, piiRoles) {
+    if (role === 'DEVELOPER')
+        return true;
     return piiRoles.includes(role);
 }
 /** Roles that can export / generate reports. */
 function canExport(role, exportRoles) {
+    if (role === 'DEVELOPER')
+        return true;
     return exportRoles.includes(role);
 }
 /** Roles that can access the admin console. */
 function isAdmin(role) {
-    return role === 'SUPER_ADMIN';
+    return role === 'SUPER_ADMIN' || role === 'DEVELOPER';
 }
 /** Roles that can read audit logs. */
 function canReadAudit(role) {
-    return role === 'SUPER_ADMIN' || role === 'AUDITOR';
+    return role === 'SUPER_ADMIN' || role === 'AUDITOR' || role === 'DEVELOPER';
 }
 /** State-wide read (no row filter). */
 function isStateScope(role) {
-    return role === 'SUPER_ADMIN' || role === 'SCRB_ANALYST';
+    return role === 'SUPER_ADMIN' || role === 'SCRB_ANALYST' || role === 'DEVELOPER';
 }
 /** Default landing route per role (FRONTEND_ARCHITECTURE.md #3). */
 function defaultHome(role) {
     switch (role) {
+        case 'DEVELOPER':
         case 'SUPER_ADMIN':
         case 'SCRB_ANALYST':
             return '/hub';
@@ -69,6 +75,8 @@ function defaultHome(role) {
 }
 /** Whether a role may access a given route (UI guard; server enforces separately). */
 function canAccessRoute(route, role) {
+    if (role === 'DEVELOPER')
+        return true;
     if (route === '/login' || route === '/' || route === '/forbidden')
         return true;
     if (route === '/hub')

@@ -3,6 +3,6 @@
   "description": "Prefill KPI cache (sub-phase 2F/5A)",
   "cron": "0 2 * * *",
   "timezone": "Asia/Kolkata",
-  "function": "functions/analytics/index.ts",
-  "action": "warmCache"
+  "function": "analytics",
+  "params": { "job_action": "warmCache" }
 }

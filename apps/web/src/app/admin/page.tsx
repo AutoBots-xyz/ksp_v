@@ -152,18 +152,18 @@ export default function AdminPage() {
     <AppShell title="SUPER_ADMIN Console & Operations" scope="SUPER_ADMIN Only">
       {/* Toast Notification Banner */}
       {toastMsg && (
-        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between animate-bounce">
-          <span>{toastMsg}</span>
-          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold">
+        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3 sm:p-4 text-[10px] sm:text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between">
+          <span className="flex-1">{toastMsg}</span>
+          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold ml-2 shrink-0">
             ✕
           </button>
         </div>
       )}
 
       {/* Header Banner */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-100">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-gray-100">
         <div className="flex items-center gap-3">
-          <span className="flex h-3 w-3 rounded-full bg-rose-600 animate-pulse" />
+          <span className="flex h-3 w-3 rounded-full bg-rose-600 animate-pulse shrink-0" />
           <div>
             <span className="text-sm font-bold text-ksp-navy">SUPER_ADMIN Console</span>
             <div className="text-xs text-gray-400">System configuration, user mappings, and cron jobs</div>
@@ -171,69 +171,69 @@ export default function AdminPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="rounded-md bg-rose-100 px-3 py-1 text-xs font-bold text-rose-700">
-            SUPER_ADMIN Privilege Active
+          <span className="rounded-md bg-rose-100 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-bold text-rose-700">
+            SUPER_ADMIN Active
           </span>
         </div>
       </div>
 
       {/* Alert Notification Banner */}
       {alertMsg && (
-        <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-xs font-bold text-amber-900 flex items-center justify-between shadow-sm">
-          <span>{alertMsg}</span>
-          <button type="button" onClick={() => setAlertMsg(null)} className="text-amber-700 hover:text-amber-900 font-extrabold">
+        <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-3 sm:p-4 text-[10px] sm:text-xs font-bold text-amber-900 flex items-center justify-between shadow-sm">
+          <span className="flex-1">{alertMsg}</span>
+          <button type="button" onClick={() => setAlertMsg(null)} className="text-amber-700 hover:text-amber-900 font-extrabold ml-2 shrink-0">
             ✕
           </button>
         </div>
       )}
 
       {/* Navigation Tabs */}
-      <div className="mb-6 flex rounded-xl bg-white p-1.5 border border-gray-100 shadow-sm text-xs font-bold w-fit">
+      <div className="mb-6 flex flex-wrap rounded-xl bg-white p-1.5 border border-gray-100 shadow-sm text-xs font-bold">
         <button
           type="button"
           onClick={() => setActiveTab('users')}
-          className={`rounded-lg px-4 py-2 transition-all ${
+          className={`rounded-lg px-3 sm:px-4 py-2 transition-all ${
             activeTab === 'users' ? 'bg-ksp-navy text-white shadow-sm' : 'text-gray-500 hover:text-ksp-navy'
           }`}
         >
-          User-Role-Unit Mapping ({users.length})
+          User-Role-Unit ({users.length})
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('jobs')}
-          className={`rounded-lg px-4 py-2 transition-all ${
+          className={`rounded-lg px-3 sm:px-4 py-2 transition-all ${
             activeTab === 'jobs' ? 'bg-ksp-navy text-white shadow-sm' : 'text-gray-500 hover:text-ksp-navy'
           }`}
         >
-          Catalyst Cron Jobs ({jobList.length})
+          Cron Jobs ({jobList.length})
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('ingest')}
-          className={`rounded-lg px-4 py-2 transition-all ${
+          className={`rounded-lg px-3 sm:px-4 py-2 transition-all ${
             activeTab === 'ingest' ? 'bg-ksp-navy text-white shadow-sm' : 'text-gray-500 hover:text-ksp-navy'
           }`}
         >
-          FIR Batch Import Pipeline
+          FIR Import
         </button>
       </div>
 
       {/* Tab 1: User-Role-Unit Mapping Table */}
       {activeTab === 'users' && (
         <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3">
+          <div className="mb-4 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-ksp-navy">User Access & Role Mapping</h2>
               <p className="text-xs text-gray-400">Enforces role personas & access restrictions across districts</p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
               <input
                 type="text"
-                placeholder="Search User Email, Name, Unit..."
+                placeholder="Search..."
                 value={searchUser}
                 onChange={(e) => setSearchUser(e.target.value)}
-                className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-ksp-navy focus:outline-none focus:ring-2 focus:ring-ksp-blue min-w-[220px]"
+                className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-ksp-navy focus:outline-none focus:ring-2 focus:ring-ksp-blue flex-1 sm:min-w-[200px]"
               />
 
               <button
@@ -241,40 +241,40 @@ export default function AdminPage() {
                 onClick={() => setShowAddUserModal(true)}
                 className="rounded-lg bg-ksp-navy hover:bg-ksp-blue transition-colors px-3 py-1.5 text-xs font-bold text-white shadow-sm flex items-center gap-1.5"
               >
-                <span>👤</span> + Provision New User
+                + Provision User
               </button>
 
-              <div className="rounded bg-rose-50 border border-rose-200 px-3 py-1 text-[11px] font-bold text-rose-700">
+              <div className="hidden sm:block rounded bg-rose-50 border border-rose-200 px-3 py-1 text-[11px] font-bold text-rose-700">
                 Guard: ≥1 Active SUPER_ADMIN
               </div>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-100 bg-ksp-slate/50 text-ksp-navy font-bold">
-                  <th className="p-3">User ID & Email</th>
-                  <th className="p-3">Full Name</th>
-                  <th className="p-3">Assigned Role</th>
-                  <th className="p-3">Unit / Scope</th>
-                  <th className="p-3 text-center">Account Status</th>
-                  <th className="p-3 text-right">Actions</th>
+                  <th className="p-2 sm:p-3">User ID & Email</th>
+                  <th className="p-2 sm:p-3">Full Name</th>
+                  <th className="p-2 sm:p-3">Assigned Role</th>
+                  <th className="p-2 sm:p-3">Unit / Scope</th>
+                  <th className="p-2 sm:p-3 text-center">Account Status</th>
+                  <th className="p-2 sm:p-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {filteredUsers.map((u) => (
                   <tr key={u.id} className="hover:bg-gray-50/80 transition-colors">
-                    <td className="p-3">
-                      <div className="font-bold text-ksp-navy">{u.email}</div>
-                      <div className="text-[10px] text-gray-400">{u.id}</div>
+                    <td className="p-2 sm:p-3">
+                      <div className="font-bold text-ksp-navy text-[11px] sm:text-xs">{u.email}</div>
+                      <div className="text-[9px] sm:text-[10px] text-gray-400">{u.id}</div>
                     </td>
-                    <td className="p-3 font-medium text-gray-800">{u.name}</td>
-                    <td className="p-3">
+                    <td className="p-2 sm:p-3 font-medium text-gray-800 text-[11px] sm:text-xs">{u.name}</td>
+                    <td className="p-2 sm:p-3">
                       <select
                         value={u.role}
                         onChange={(e) => updateUserRole(u.id, e.target.value as any)}
-                        className="rounded-lg border border-gray-200 bg-white p-1.5 text-xs font-bold text-ksp-navy focus:ring-2 focus:ring-ksp-blue"
+                        className="rounded-lg border border-gray-200 bg-white p-1 text-[10px] sm:text-xs font-bold text-ksp-navy focus:ring-2 focus:ring-ksp-blue"
                       >
                         <option value="SUPER_ADMIN">SUPER_ADMIN</option>
                         <option value="SCRB_ANALYST">SCRB_ANALYST</option>
@@ -286,21 +286,21 @@ export default function AdminPage() {
                         <option value="VIEWER">VIEWER</option>
                       </select>
                     </td>
-                    <td className="p-3 text-gray-600 font-medium">{u.unit}</td>
-                    <td className="p-3 text-center">
+                    <td className="p-2 sm:p-3 text-gray-600 font-medium text-[11px] sm:text-xs">{u.unit}</td>
+                    <td className="p-2 sm:p-3 text-center">
                       <span
-                        className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
+                        className={`inline-block rounded-full px-2 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-bold ${
                           u.active ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-200 text-gray-600'
                         }`}
                       >
                         {u.active ? 'ACTIVE' : 'INACTIVE'}
                       </span>
                     </td>
-                    <td className="p-3 text-right">
+                    <td className="p-2 sm:p-3 text-right">
                       <button
                         type="button"
                         onClick={() => toggleUserStatus(u.id)}
-                        className={`rounded-lg px-3 py-1 text-xs font-bold transition-all shadow-sm ${
+                        className={`rounded-lg px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-bold transition-all shadow-sm ${
                           u.active
                             ? 'bg-rose-100 text-rose-700 hover:bg-rose-200'
                             : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
@@ -329,10 +329,10 @@ export default function AdminPage() {
             {jobList.map((job) => (
               <div
                 key={job.name}
-                className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-4 transition-all hover:bg-white hover:shadow-sm"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-3 sm:p-4 transition-all hover:bg-white hover:shadow-sm"
               >
-                <div>
-                  <div className="flex items-center gap-2">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-sm font-bold text-ksp-navy">{job.name}</span>
                     <span className="font-mono rounded bg-ksp-slate px-2 py-0.5 text-[10px] font-bold text-ksp-accent">
                       {job.expression}
@@ -355,7 +355,7 @@ export default function AdminPage() {
                   type="button"
                   onClick={() => handleTriggerJob(job.name)}
                   disabled={job.status === 'RUNNING'}
-                  className="rounded-lg bg-ksp-navy hover:bg-ksp-blue transition-colors px-4 py-2 text-xs font-bold text-white shadow-sm flex items-center gap-2"
+                  className="rounded-lg bg-ksp-navy hover:bg-ksp-blue transition-colors px-4 py-2 text-xs font-bold text-white shadow-sm flex items-center gap-2 w-full sm:w-auto justify-center"
                 >
                   {job.status === 'RUNNING' ? 'Running Job...' : '▶ Run Job Now'}
                 </button>
@@ -406,7 +406,7 @@ export default function AdminPage() {
       {/* Modal: Provision / Invite New User */}
       {showAddUserModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-xl bg-white p-4 sm:p-6 shadow-xl mx-auto">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div>
                 <h3 className="text-base font-bold text-ksp-navy">Provision New System User</h3>
@@ -446,7 +446,7 @@ export default function AdminPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold text-ksp-navy mb-1">Assigned Role</label>
                   <select
@@ -478,17 +478,17 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-gray-100">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setShowAddUserModal(false)}
-                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200"
+                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md"
+                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md w-full sm:w-auto"
                 >
                   Provision User Access
                 </button>

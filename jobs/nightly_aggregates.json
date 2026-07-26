@@ -3,6 +3,6 @@
   "description": "Rebuild AggDistrictDay/AggUnitDay (sub-phase 2B/5A)",
   "cron": "30 1 * * *",
   "timezone": "Asia/Kolkata",
-  "function": "functions/analytics/index.ts",
-  "action": "rebuildAggregates"
+  "function": "analytics",
+  "params": { "job_action": "rebuildAggregates" }
 }

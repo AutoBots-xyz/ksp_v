@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.catalyst = catalyst;
 exports.scopeWhereClause = scopeWhereClause;
+exports.sanitizeZcqlString = sanitizeZcqlString;
+exports.sanitizeZcqlDate = sanitizeZcqlDate;
+exports.sanitizeNumber = sanitizeNumber;
 const scope_1 = require("./scope");
 /** Lazily resolve the Catalyst app (initialized once per invocation). */
 function catalyst(req) {
@@ -33,5 +36,22 @@ function scopeWhereClause(scope) {
     if (f.demoOnly)
         parts.push('IsDemo = true');
     return parts.length ? parts.join(' AND ') : '1 = 1';
+}
+/** Sanitize a string value for safe insertion into a ZCQL query string. */
+function sanitizeZcqlString(str) {
+    return str.replace(/'/g, "''").replace(/\\/g, '\\\\');
+}
+/** Sanitize and validate a date string (YYYY-MM-DD or YYYY-MM-DD HH:mm:ss) for ZCQL queries. */
+function sanitizeZcqlDate(dateStr) {
+    const cleaned = dateStr.replace(/[^0-9\- :]/g, '');
+    return sanitizeZcqlString(cleaned);
+}
+/** Ensure input is a valid integer or throw a validation error. */
+function sanitizeNumber(val) {
+    const parsed = Number(val);
+    if (Number.isNaN(parsed) || !Number.isFinite(parsed)) {
+        throw new Error(`Invalid numeric parameter: ${val}`);
+    }
+    return Math.floor(parsed);
 }
 //# sourceMappingURL=datastore.js.map

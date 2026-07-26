@@ -96,3 +96,66 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile-first responsive & touch-friendly utilities */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Touch feedback & smooth tap handling */
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Responsive table wrapper for mobile & tablet */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .table-responsive {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Touch-friendly input heights for mobile without distorting small icon buttons */
+@media (max-width: 640px) {
+  select, input:not([type="checkbox"]):not([type="radio"]), textarea {
+    min-height: 42px;
+  }
+}
+
+/* Mobile Safe-Area padding helpers for iOS / Android notches */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* Fix Leaflet map z-index bleeding through mobile drawers, menus & dropdowns */
+.leaflet-container {
+  z-index: 0 !important;
+}
+.leaflet-pane {
+  z-index: 1 !important;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}
+
+

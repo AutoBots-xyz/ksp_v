@@ -113,50 +113,50 @@ export default function StationPage() {
         pendingSource="Phase 1 wiring of station case data endpoint"
         className="mb-4"
       />
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-sm">
-        <div className="flex items-center gap-3">
-          <span className="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-sm">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <span className="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse shrink-0" />
           <span className="text-sm font-bold text-foreground">Station Command Live</span>
           <Badge variant="secondary">SHO Duty Desk</Badge>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <select
             value={selectedStation}
             onChange={(e) => setSelectedStation(e.target.value)}
-            className="rounded-md border border-input bg-background px-3 py-1.5 text-sm font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            className="rounded-md border border-input bg-background px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
-            <option value="Whitefield PS">Whitefield PS (Unit 101)</option>
-            <option value="Electronic City PS">Electronic City PS (Unit 102)</option>
-            <option value="Koramangala PS">Koramangala PS (Unit 103)</option>
-            <option value="HSR Layout PS">HSR Layout PS (Unit 104)</option>
+            <option value="Whitefield PS">Whitefield PS</option>
+            <option value="Electronic City PS">Electronic City PS</option>
+            <option value="Koramangala PS">Koramangala PS</option>
+            <option value="HSR Layout PS">HSR Layout PS</option>
           </select>
 
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-initial min-w-0">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Search Queue..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-9 w-64"
+              className="pl-9 h-9 w-full sm:w-48"
             />
           </div>
 
-          <Button variant="outline" size="sm" onClick={handleResetFilters}>
-            <RotateCcw className="mr-2 h-4 w-4" /> Reset
+          <Button variant="outline" size="sm" onClick={handleResetFilters} className="text-xs">
+            <RotateCcw className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Reset
           </Button>
 
-          <Button size="sm" onClick={() => setShowRecordsModal(true)}>
-            <FilePlus className="mr-2 h-4 w-4" /> Intake FIR to Catalyst
+          <Button size="sm" onClick={() => setShowRecordsModal(true)} className="text-xs">
+            <FilePlus className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" /> Intake FIR
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
         
         {/* Left Side: Beat Incidents */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <Card className="rounded-none shadow-none border-border">
             <CardHeader className="pb-2 border-b border-border/50 bg-secondary/20">
               <CardTitle className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground font-bold">Live Beat Incidents</CardTitle>
@@ -210,46 +210,48 @@ export default function StationPage() {
             </div>
           </div>
           <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>FIR No.</TableHead>
-                  <TableHead>Category / Sections</TableHead>
-                  <TableHead>Assigned IO</TableHead>
-                  <TableHead>Beat / Location</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredQueue.map((c) => (
-                  <TableRow key={c.firNo}>
-                    <TableCell>
-                      <div className="font-mono text-xs font-bold text-primary">{c.firNo}</div>
-                      <div className="text-[10px] text-muted-foreground">{c.date}</div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="font-bold text-sm text-foreground line-clamp-1">{c.category}</div>
-                      {c.heinous && <RiskBadge level="CRITICAL" className="mt-1" />}
-                    </TableCell>
-                    <TableCell className="font-medium text-sm text-foreground">
-                      {c.ioName}
-                    </TableCell>
-                    <TableCell className="text-xs text-muted-foreground">
-                      {c.beat}
-                    </TableCell>
-                    <TableCell>
-                      <RiskBadge level={c.status} />
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" onClick={() => router.push('/cases')}>
-                        View →
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>FIR No.</TableHead>
+                    <TableHead>Category / Sections</TableHead>
+                    <TableHead>Assigned IO</TableHead>
+                    <TableHead>Beat / Location</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead></TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredQueue.map((c) => (
+                    <TableRow key={c.firNo}>
+                      <TableCell className="whitespace-nowrap">
+                        <div className="font-mono text-xs font-bold text-primary">{c.firNo}</div>
+                        <div className="text-[10px] text-muted-foreground">{c.date}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-bold text-sm text-foreground line-clamp-1">{c.category}</div>
+                        {c.heinous && <RiskBadge level="CRITICAL" className="mt-1" />}
+                      </TableCell>
+                      <TableCell className="font-medium text-sm text-foreground whitespace-nowrap">
+                        {c.ioName}
+                      </TableCell>
+                      <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                        {c.beat}
+                      </TableCell>
+                      <TableCell>
+                        <RiskBadge level={c.status} />
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="sm" onClick={() => router.push('/cases')}>
+                          View →
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
             {filteredQueue.length === 0 && (
               <div className="p-8 text-center text-sm text-muted-foreground">
                 Queue empty or no cases match filters.
@@ -269,10 +271,10 @@ export default function StationPage() {
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg rounded-2xl border bg-card p-6 shadow-2xl"
+              className="relative w-full max-w-lg rounded-2xl border bg-card p-4 sm:p-6 shadow-2xl mx-auto"
             >
               <div className="mb-4 border-b pb-4">
-                <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
                   <FilePlus className="h-5 w-5" /> Data Intake (CCTNS Sync)
                 </h3>
               </div>
@@ -306,9 +308,9 @@ export default function StationPage() {
                   <input type="checkbox" id="heinous" checked={isHeinous} onChange={(e) => setIsHeinous(e.target.checked)} className="rounded border-input text-primary focus:ring-primary" />
                   <label htmlFor="heinous" className="text-sm font-bold text-destructive">Flag as Heinous Crime</label>
                 </div>
-                <div className="flex justify-end gap-3 pt-4 border-t">
-                  <Button variant="outline" type="button" onClick={() => setShowRecordsModal(false)}>Cancel</Button>
-                  <Button type="submit">Ingest Record</Button>
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-4 border-t">
+                  <Button variant="outline" type="button" onClick={() => setShowRecordsModal(false)} className="w-full sm:w-auto">Cancel</Button>
+                  <Button type="submit" className="w-full sm:w-auto">Ingest Record</Button>
                 </div>
               </form>
             </motion.div>

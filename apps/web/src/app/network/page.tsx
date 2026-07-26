@@ -281,21 +281,21 @@ export default function NetworkPage() {
         pendingSource="a network-edge POST endpoint for persistence"
         className="mb-4"
       />
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-none border border-border bg-card p-4 shadow-none">
-        <form onSubmit={handleSearchSubmit} className="flex flex-1 items-center gap-3 min-w-[280px]">
-          <div className="relative w-full max-w-md">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-none border border-border bg-card p-3 sm:p-4 shadow-none">
+        <form onSubmit={handleSearchSubmit} className="flex flex-1 flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="relative flex-1 min-w-[180px]">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Search suspect/person key (BFS focus)…"
+              placeholder="Search suspect…"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="pl-9 h-9"
             />
           </div>
-          <Button type="submit" variant="outline" size="sm">Focus</Button>
+          <Button type="submit" variant="outline" size="sm" className="btn-sm-mobile">Focus</Button>
           {searchSeed && (
-            <Button type="button" variant="ghost" size="sm" onClick={() => { setSearchSeed(''); setSearchInput(''); fetchGraph(); }}>
+            <Button type="button" variant="ghost" size="sm" className="btn-sm-mobile" onClick={() => { setSearchSeed(''); setSearchInput(''); fetchGraph(); }}>
               Clear
             </Button>
           )}
@@ -306,7 +306,7 @@ export default function NetworkPage() {
                 key={h}
                 type="button"
                 onClick={() => { setHops(h); if (searchSeed) fetchGraph(searchSeed, h); }}
-                className={`rounded-none px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest transition-all ${
+                className={`rounded-none px-2 sm:px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest transition-all ${
                   hops === h ? 'bg-background text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground border border-transparent'
                 }`}
               >
@@ -316,57 +316,58 @@ export default function NetworkPage() {
           </div>
         </form>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <select
             value={layoutMode}
             onChange={(e) => setLayoutMode(e.target.value as any)}
-            className="rounded-none border-b-2 border-border bg-transparent px-3 py-1 text-[10px] font-bold text-foreground focus:outline-none focus:border-primary font-mono uppercase"
+            className="rounded-none border-b-2 border-border bg-transparent px-2 sm:px-3 py-1 text-[10px] font-bold text-foreground focus:outline-none focus:border-primary font-mono uppercase"
           >
             <option value="cose">Force-Directed</option>
             <option value="concentric">Concentric Rings</option>
             <option value="breadthfirst">Hierarchical Tree</option>
           </select>
 
-          <Button size="sm" onClick={() => setShowAddNodeModal(true)}>
-            <Plus className="h-4 w-4 mr-2" /> Add Entity
+          <Button size="sm" onClick={() => setShowAddNodeModal(true)} className="text-xs">
+            <Plus className="h-3 sm:h-4 w-3 sm:w-4 mr-1 sm:mr-2" /> Add Entity
           </Button>
 
           <Button
             size="sm"
             variant={hidePii ? 'destructive' : 'outline'}
             onClick={() => setHidePii(!hidePii)}
+            className="text-xs"
           >
-            {hidePii ? <EyeOff className="h-4 w-4 mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
+            {hidePii ? <EyeOff className="h-3 sm:h-4 w-3 sm:w-4 mr-1 sm:mr-2" /> : <Eye className="h-3 sm:h-4 w-3 sm:w-4 mr-1 sm:mr-2" />}
             {hidePii ? 'PII Masked' : 'Mask PII'}
           </Button>
         </div>
       </div>
 
-      <div className="mb-4 flex flex-wrap items-center justify-between rounded-none border border-border bg-secondary/20 px-4 py-2">
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-[10px] font-mono text-muted-foreground uppercase tracking-widest mr-2">Filter:</span>
+      <div className="mb-4 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-2 rounded-none border border-border bg-secondary/20 px-3 sm:px-4 py-2">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+          <span className="font-bold text-[10px] font-mono text-muted-foreground uppercase tracking-widest mr-1 sm:mr-2">Filter:</span>
           {['ALL', 'PERSON', 'CASE', 'PHONE', 'BANK', 'VEHICLE'].map((t) => (
             <Badge
               key={t}
               variant={typeFilter === t ? 'default' : 'secondary'}
-              className="cursor-pointer"
+              className="cursor-pointer text-[9px] sm:text-[10px]"
               onClick={() => setTypeFilter(t)}
             >
               {t}
             </Badge>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-4 text-[10px] font-mono uppercase tracking-widest font-bold text-foreground">
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 bg-red-500" /> PERSON</span>
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 bg-blue-500" /> CASE FIR</span>
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 bg-amber-500" /> PHONE</span>
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 bg-purple-500" /> BANK A/C</span>
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 bg-emerald-500" /> VEHICLE</span>
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[9px] sm:text-[10px] font-mono uppercase tracking-widest font-bold text-foreground">
+          <span className="flex items-center gap-1 sm:gap-1.5"><span className="h-2 w-2 bg-red-500" /> P</span>
+          <span className="flex items-center gap-1 sm:gap-1.5"><span className="h-2 w-2 bg-blue-500" /> C</span>
+          <span className="flex items-center gap-1 sm:gap-1.5"><span className="h-2 w-2 bg-amber-500" /> PH</span>
+          <span className="flex items-center gap-1 sm:gap-1.5"><span className="h-2 w-2 bg-purple-500" /> B</span>
+          <span className="flex items-center gap-1 sm:gap-1.5"><span className="h-2 w-2 bg-emerald-500" /> V</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 h-[calc(100vh-280px)]">
-        <Card className="lg:col-span-8 flex flex-col overflow-hidden bg-background rounded-none shadow-none border-border">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 h-auto lg:h-[calc(100vh-280px)]">
+        <Card className="flex-1 flex flex-col overflow-hidden bg-background rounded-none shadow-none border-border min-h-[400px] lg:min-h-0">
           <div className="flex-1 relative">
             {graphLoading ? (
               <div className="flex h-full items-center justify-center text-sm text-muted-foreground animate-pulse">
@@ -408,7 +409,7 @@ export default function NetworkPage() {
           </div>
         </Card>
 
-        <Card className="lg:col-span-4 p-5 overflow-y-auto rounded-none shadow-none border-border bg-secondary/10">
+        <Card className="w-full lg:w-96 p-3 sm:p-5 overflow-y-auto rounded-none shadow-none border-border bg-secondary/10">
           {/* Phase 2.6: Organized Crime Groups (community detection) */}
           {ocgGroups.length > 0 && (
             <div className="mb-4 border border-border p-4 space-y-2 bg-background shadow-sm">
@@ -552,14 +553,14 @@ export default function NetworkPage() {
         {showAddNodeModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setShowAddNodeModal(false)} />
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="relative w-full max-w-md rounded-xl border bg-card p-6 shadow-2xl">
-              <h3 className="text-lg font-bold border-b pb-3 mb-4">Add Network Entity</h3>
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="relative w-full max-w-md rounded-xl border bg-card p-4 sm:p-6 shadow-2xl mx-auto">
+              <h3 className="text-base sm:text-lg font-bold border-b pb-3 mb-4">Add Network Entity</h3>
               <form onSubmit={handleAddEntity} className="space-y-4">
                 <div>
                   <label className="text-sm font-medium mb-1 block">Entity Label</label>
                   <Input type="text" value={newNodeLabel} onChange={(e) => setNewNodeLabel(e.target.value)} required />
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-sm font-medium mb-1 block">Type</label>
                     <select value={newNodeType} onChange={(e) => setNewNodeType(e.target.value as any)} className="w-full rounded-md border bg-background p-2 text-sm">
@@ -581,9 +582,9 @@ export default function NetworkPage() {
                     <option value="USED_PHONE">USED_PHONE</option>
                   </select>
                 </div>
-                <div className="flex justify-end gap-2 pt-4">
-                  <Button variant="outline" type="button" onClick={() => setShowAddNodeModal(false)}>Cancel</Button>
-                  <Button type="submit">Add Node</Button>
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
+                  <Button variant="outline" type="button" onClick={() => setShowAddNodeModal(false)} className="w-full sm:w-auto">Cancel</Button>
+                  <Button type="submit" className="w-full sm:w-auto">Add Node</Button>
                 </div>
               </form>
             </motion.div>

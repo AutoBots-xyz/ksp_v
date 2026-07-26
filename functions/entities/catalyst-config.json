@@ -1,0 +1,9 @@
+{
+  "name": "entities",
+  "type": "advancedio",
+  "category": "Advanced I/O",
+  "description": "Entities lookup",
+  "stack": "node20",
+  "main": "index.js",
+  "path": "index.js"
+}

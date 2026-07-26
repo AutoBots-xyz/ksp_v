@@ -3,7 +3,7 @@ export default function me(ctx: unknown): Promise<{
     success: true;
     data: {
         userProfileId: number;
-        role: "SUPER_ADMIN" | "SCRB_ANALYST" | "DISTRICT_COMMAND" | "SHO" | "IO" | "DATA_OPERATOR" | "AUDITOR" | "VIEWER";
+        role: "SUPER_ADMIN" | "SCRB_ANALYST" | "DISTRICT_COMMAND" | "SHO" | "IO" | "DEVELOPER" | "DATA_OPERATOR" | "AUDITOR" | "VIEWER";
         districtId: number | null;
         unitId: number | null;
         employeeId: number | null;

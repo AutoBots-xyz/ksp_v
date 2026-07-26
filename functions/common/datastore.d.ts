@@ -10,3 +10,9 @@ import type { Scope } from './scope';
 export declare function catalyst(req?: unknown): unknown;
 /** Build a ZCQL/ORM WHERE clause fragment from a CaseScopeFilter. */
 export declare function scopeWhereClause(scope: Scope): string;
+/** Sanitize a string value for safe insertion into a ZCQL query string. */
+export declare function sanitizeZcqlString(str: string): string;
+/** Sanitize and validate a date string (YYYY-MM-DD or YYYY-MM-DD HH:mm:ss) for ZCQL queries. */
+export declare function sanitizeZcqlDate(dateStr: string): string;
+/** Ensure input is a valid integer or throw a validation error. */
+export declare function sanitizeNumber(val: string | number): number;

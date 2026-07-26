@@ -2,14 +2,37 @@ export default function network(ctx: any): Promise<{
     meta?: Record<string, unknown> | undefined;
     success: true;
     data: {
+        id: string;
+        memberCount: number;
+        members: Array<{
+            personKey: string;
+            personName: string;
+        }>;
+        mostCentralNode: {
+            personKey: string;
+            personName: string;
+        };
+        sharedEdgeTypes: string[];
+    }[];
+} | {
+    meta?: Record<string, unknown> | undefined;
+    success: true;
+    data: {
         elements: {
-            nodes: any[];
+            nodes: {
+                data: {
+                    id: string;
+                    label: string;
+                    type: string;
+                    risk: string;
+                };
+            }[];
             edges: {
                 data: {
-                    id: any;
-                    source: any;
-                    target: any;
-                    label: any;
+                    id: string;
+                    source: string;
+                    target: string;
+                    label: string;
                 };
             }[];
         };

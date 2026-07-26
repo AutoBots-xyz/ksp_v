@@ -282,33 +282,33 @@ export default function ReportsPage() {
     <AppShell title="SmartBrowz Automated PDF Reports" scope={`Role: ${me?.role ?? '—'}`}>
       {/* Toast */}
       {toast && (
-        <div className="mb-4 flex items-center justify-between rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-xs font-bold text-emerald-900 shadow-sm">
-          <span>{toast}</span>
-          <button type="button" onClick={() => setToast(null)} className="font-extrabold text-emerald-700">
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-emerald-300 bg-emerald-50 p-3 sm:p-4 text-[10px] sm:text-xs font-bold text-emerald-900 shadow-sm">
+          <span className="flex-1">{toast}</span>
+          <button type="button" onClick={() => setToast(null)} className="font-extrabold text-emerald-700 ml-2 shrink-0">
             ✕
           </button>
         </div>
       )}
 
       {/* Header */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl border border-gray-100 bg-white p-3 sm:p-4 shadow-sm">
         <div className="flex items-center gap-3">
-          <span className="h-3 w-3 animate-pulse rounded-full bg-emerald-500" />
+          <span className="h-3 w-3 shrink-0 animate-pulse rounded-full bg-emerald-500" />
           <div>
             <span className="text-sm font-bold text-ksp-navy">
-              Catalyst SmartBrowz PDF Generation Engine
+              Catalyst SmartBrowz PDF Engine
             </span>
             <div className="text-xs text-gray-400">
-              Headless Chromium automated PDF rendering & server-side security enforcement
+              Headless Chromium automated PDF rendering
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="rounded-md bg-ksp-slate px-3 py-1 text-xs font-bold text-ksp-accent">
-            PII: {piiIncluded ? 'Unredacted (role-derived)' : 'Masked (role-derived)'}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-md bg-ksp-slate px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-bold text-ksp-accent">
+            PII: {piiIncluded ? 'Unredacted' : 'Masked'}
           </span>
-          <span className="rounded-md bg-ksp-slate px-3 py-1 text-xs font-bold text-ksp-accent">
-            Scope: {isStateRole ? 'State-wide' : 'Own district/unit'}
+          <span className="rounded-md bg-ksp-slate px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-bold text-ksp-accent">
+            Scope: {isStateRole ? 'State-wide' : 'Own district'}
           </span>
         </div>
       </div>
@@ -353,9 +353,9 @@ export default function ReportsPage() {
       </div>
 
       {/* Main grid */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
         {/* Generator form */}
-        <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm lg:col-span-5">
+        <div className="rounded-xl border border-gray-100 bg-white p-3 sm:p-5 shadow-sm w-full lg:w-2/5">
           <div className="mb-4 border-b border-gray-100 pb-3">
             <span className="text-[10px] font-bold uppercase text-ksp-accent">CONFIG & GENERATE</span>
             <h2 className="text-base font-bold text-ksp-navy">{selectedTemplate.title}</h2>
@@ -428,7 +428,7 @@ export default function ReportsPage() {
             )}
 
             {/* Date range (ISO, capped at MAX_DATE_RANGE_DAYS server-side) */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block font-bold text-ksp-navy">Date From *</label>
                 <input
@@ -487,7 +487,7 @@ export default function ReportsPage() {
         </div>
 
         {/* History */}
-        <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm lg:col-span-7">
+        <div className="rounded-xl border border-gray-100 bg-white p-3 sm:p-5 shadow-sm flex-1">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-ksp-navy">Generated Report History</h2>
@@ -509,38 +509,38 @@ export default function ReportsPage() {
               </div>
             ) : (
               filteredHistory.map((rpt) => (
-                <div
-                  key={rpt.jobId}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-gray-100 bg-gray-50/50 p-3.5 transition-all hover:border-gray-200 hover:bg-white hover:shadow-sm"
-                >
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-ksp-navy">{rpt.jobId}</span>
-                      <span
-                        className={`rounded px-1.5 py-0.5 text-[9px] font-bold ${statusColor(rpt.status)}`}
+                  <div
+                    key={rpt.jobId}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-gray-100 bg-gray-50/50 p-3 sm:p-3.5 transition-all hover:border-gray-200 hover:bg-white hover:shadow-sm"
+                  >
+                    <div className="space-y-1 flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-mono text-xs font-bold text-ksp-navy">{rpt.jobId}</span>
+                        <span
+                          className={`rounded px-1.5 py-0.5 text-[9px] font-bold ${statusColor(rpt.status)}`}
+                        >
+                          {rpt.status}
+                        </span>
+                        <span className="text-[10px] text-gray-400">{formatSize(rpt.fileSizeBytes)}</span>
+                      </div>
+                      <h3 className="text-xs font-bold text-ksp-navy">{rpt.template}</h3>
+                      <div className="text-[10px] text-gray-400">
+                        {rpt.createdByRole} · {formatDate(rpt.createdAt)}
+                      </div>
+                    </div>
+                    {rpt.status === 'COMPLETE' ? (
+                      <a
+                        href={`/api/v1/reports/${rpt.jobId}/download`}
+                        className="flex items-center justify-center gap-1.5 rounded-lg bg-ksp-navy px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-ksp-blue w-full sm:w-auto"
                       >
-                        {rpt.status}
+                        Download PDF
+                      </a>
+                    ) : (
+                      <span className="text-[10px] text-gray-400 text-center sm:text-left">
+                        {rpt.status === 'PROCESSING' ? 'Rendering...' : 'Queued...'}
                       </span>
-                      <span className="text-[10px] text-gray-400">{formatSize(rpt.fileSizeBytes)}</span>
-                    </div>
-                    <h3 className="text-xs font-bold text-ksp-navy">{rpt.template}</h3>
-                    <div className="text-[10px] text-gray-400">
-                      Generated by: {rpt.createdByRole} · {formatDate(rpt.createdAt)}
-                    </div>
+                    )}
                   </div>
-                  {rpt.status === 'COMPLETE' ? (
-                    <a
-                      href={`/api/v1/reports/${rpt.jobId}/download`}
-                      className="flex items-center gap-1.5 rounded-lg bg-ksp-navy px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-ksp-blue"
-                    >
-                      Download PDF
-                    </a>
-                  ) : (
-                    <span className="text-[10px] text-gray-400">
-                      {rpt.status === 'PROCESSING' ? 'Rendering...' : 'Queued...'}
-                    </span>
-                  )}
-                </div>
               ))
             )}
           </div>

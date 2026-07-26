@@ -143,35 +143,35 @@ export default function AuditPage() {
     <AppShell title="Security & Access Audit Log" scope="SUPER_ADMIN / AUDITOR Scope">
       {/* Toast Notification Banner */}
       {toastMsg && (
-        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between animate-bounce">
-          <span>{toastMsg}</span>
-          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold">
+        <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3 sm:p-4 text-[10px] sm:text-xs font-bold text-emerald-900 shadow-sm flex items-center justify-between">
+          <span className="flex-1">{toastMsg}</span>
+          <button type="button" onClick={() => setToastMsg(null)} className="text-emerald-700 font-extrabold ml-2 shrink-0">
             ✕
           </button>
         </div>
       )}
 
       {/* Header Banner */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-100">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-gray-100">
         <div className="flex items-center gap-3">
-          <span className="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse shrink-0" />
           <div>
             <span className="text-sm font-bold text-ksp-navy">Immutable Security Audit Trail</span>
             <div className="text-xs text-gray-400">ADR-012 Security & PII Access Log Enforcement</div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setShowExportModal(true)}
-            className="rounded-lg bg-ksp-navy hover:bg-ksp-blue transition-colors px-3 py-1.5 text-xs font-bold text-white shadow-sm flex items-center gap-1.5"
+            className="rounded-lg bg-ksp-navy hover:bg-ksp-blue transition-colors px-3 py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-sm flex items-center gap-1.5"
           >
-            <span>📥</span> Export Audit Log
+            📥 Export
           </button>
 
-          <span className="rounded-md bg-ksp-slate px-3 py-1 text-xs font-bold text-ksp-accent">
-            Auditor Privilege Active
+          <span className="rounded-md bg-ksp-slate px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-bold text-ksp-accent whitespace-nowrap">
+            Auditor Active
           </span>
         </div>
       </div>
@@ -204,8 +204,8 @@ export default function AuditPage() {
       </div>
 
       {/* Controls & Action Filter Bar */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-100">
-        <div className="flex flex-1 items-center gap-3 min-w-[280px]">
+      <div className="mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-gray-100">
+        <div className="flex flex-1 flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-ksp-navy">Action:</span>
             <div className="flex flex-wrap rounded-lg bg-gray-100 p-1 text-xs font-bold">
@@ -214,34 +214,34 @@ export default function AuditPage() {
                   key={act}
                   type="button"
                   onClick={() => setActionFilter(act)}
-                  className={`rounded-md px-2.5 py-1 transition-all ${
+                  className={`rounded-md px-1.5 sm:px-2.5 py-1 transition-all text-[10px] sm:text-xs ${
                     actionFilter === act ? 'bg-ksp-navy text-white shadow-sm' : 'text-gray-500'
                   }`}
                 >
-                  {act}
+                  {act === 'VIEW_CASE' ? 'VIEW' : act === 'PII_ACCESS' ? 'PII' : act === 'ROLE_CHANGE' ? 'ROLE' : act}
                 </button>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <select
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
             className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-bold text-ksp-navy focus:outline-none focus:ring-2 focus:ring-ksp-blue"
           >
-            <option value="Today">Today (2026-07-24)</option>
+            <option value="Today">Today</option>
             <option value="7d">Last 7 Days</option>
             <option value="30d">Last 30 Days</option>
           </select>
 
           <input
             type="text"
-            placeholder="Search User, Resource, IP, Req ID..."
+            placeholder="Search..."
             value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-ksp-navy focus:outline-none focus:ring-2 focus:ring-ksp-blue min-w-[220px]"
+            className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-ksp-navy focus:outline-none focus:ring-2 focus:ring-ksp-blue flex-1 sm:min-w-[200px]"
           />
         </div>
       </div>
@@ -257,32 +257,32 @@ export default function AuditPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[650px]">
             <thead>
               <tr className="border-b border-gray-100 bg-ksp-slate/50 text-ksp-navy font-bold">
-                <th className="p-3">Event ID & Timestamp</th>
-                <th className="p-3">User & Role</th>
-                <th className="p-3">Action Event</th>
-                <th className="p-3">Target Resource</th>
-                <th className="p-3">Client IP & Request ID</th>
-                <th className="p-3 text-center">PII Flag</th>
-                <th className="p-3 text-right">Inspect</th>
+                <th className="p-2 sm:p-3">Event ID & Timestamp</th>
+                <th className="p-2 sm:p-3">User & Role</th>
+                <th className="p-2 sm:p-3">Action Event</th>
+                <th className="p-2 sm:p-3">Target Resource</th>
+                <th className="p-2 sm:p-3">Client IP & Request ID</th>
+                <th className="p-2 sm:p-3 text-center">PII Flag</th>
+                <th className="p-2 sm:p-3 text-right">Inspect</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filteredLogs.map((log) => (
                 <tr key={log.id} className="hover:bg-gray-50/80 transition-colors">
-                  <td className="p-3">
-                    <div className="font-bold text-ksp-navy">{log.id}</div>
-                    <div className="text-[10px] text-gray-400">{log.timestamp}</div>
+                  <td className="p-2 sm:p-3">
+                    <div className="font-bold text-ksp-navy text-[11px] sm:text-xs">{log.id}</div>
+                    <div className="text-[9px] sm:text-[10px] text-gray-400 whitespace-nowrap">{log.timestamp}</div>
                   </td>
-                  <td className="p-3">
-                    <div className="font-bold text-ksp-navy">{log.userEmail}</div>
-                    <div className="text-[10px] font-semibold text-ksp-accent">[{log.role}]</div>
+                  <td className="p-2 sm:p-3">
+                    <div className="font-bold text-ksp-navy text-[11px] sm:text-xs whitespace-nowrap">{log.userEmail}</div>
+                    <div className="text-[9px] sm:text-[10px] font-semibold text-ksp-accent">[{log.role}]</div>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2 sm:p-3">
                     <span
-                      className={`inline-block rounded px-2 py-0.5 text-[10px] font-bold ${
+                      className={`inline-block rounded px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-bold ${
                         log.action === 'PII_ACCESS'
                           ? 'bg-amber-100 text-amber-700'
                           : log.action === 'EXPORT'
@@ -297,25 +297,25 @@ export default function AuditPage() {
                       {log.action}
                     </span>
                   </td>
-                  <td className="p-3 font-medium text-gray-800">{log.resource}</td>
-                  <td className="p-3">
-                    <div className="font-mono text-gray-600">{log.clientIp}</div>
-                    <div className="font-mono text-[10px] text-gray-400">{log.requestId}</div>
+                  <td className="p-2 sm:p-3 font-medium text-gray-800 text-[11px] sm:text-xs max-w-[200px] truncate">{log.resource}</td>
+                  <td className="p-2 sm:p-3">
+                    <div className="font-mono text-gray-600 text-[11px] sm:text-xs">{log.clientIp}</div>
+                    <div className="font-mono text-[9px] sm:text-[10px] text-gray-400">{log.requestId}</div>
                   </td>
-                  <td className="p-3 text-center">
+                  <td className="p-2 sm:p-3 text-center">
                     {log.isPii ? (
-                      <span className="rounded bg-rose-100 px-2 py-0.5 text-[10px] font-bold text-rose-700">
-                        🔒 PII READ LOGGED
+                      <span className="rounded bg-rose-100 px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-rose-700 whitespace-nowrap">
+                        PII READ
                       </span>
                     ) : (
-                      <span className="text-[10px] text-gray-400">Standard</span>
+                      <span className="text-[9px] sm:text-[10px] text-gray-400">Standard</span>
                     )}
                   </td>
-                  <td className="p-3 text-right">
+                  <td className="p-2 sm:p-3 text-right">
                     <button
                       type="button"
                       onClick={() => setSelectedLog(log)}
-                      className="rounded bg-ksp-slate px-2 py-1 text-[10px] font-bold text-ksp-navy hover:bg-ksp-navy hover:text-white transition-colors"
+                      className="rounded bg-ksp-slate px-1.5 sm:px-2 py-1 text-[9px] sm:text-[10px] font-bold text-ksp-navy hover:bg-ksp-navy hover:text-white transition-colors"
                     >
                       Details
                     </button>
@@ -330,7 +330,7 @@ export default function AuditPage() {
       {/* Modal 1: Export Audit Log */}
       {showExportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-xl bg-white p-4 sm:p-6 shadow-xl mx-auto">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div>
                 <h3 className="text-base font-bold text-ksp-navy">Export Immutable Audit Trail</h3>
@@ -362,17 +362,17 @@ export default function AuditPage() {
                 🔒 Exported logs include SHA-256 cryptographic hashes for anti-tampering verification under ADR-012.
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-gray-100">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setShowExportModal(false)}
-                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200"
+                  className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md"
+                  className="rounded-lg bg-ksp-navy px-4 py-2 font-bold text-white hover:bg-ksp-blue shadow-md w-full sm:w-auto"
                 >
                   Generate Signed Log Export
                 </button>
@@ -385,7 +385,7 @@ export default function AuditPage() {
       {/* Modal 2: Audit Event Metadata Detail Inspector */}
       {selectedLog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl">
+          <div className="w-full max-w-lg rounded-xl bg-white p-4 sm:p-6 shadow-2xl mx-auto">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div>
                 <span className="font-mono text-xs font-bold text-ksp-accent">AUDIT METADATA INSPECTOR</span>
@@ -401,7 +401,7 @@ export default function AuditPage() {
             </div>
 
             <div className="mt-4 space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="rounded-lg bg-gray-50 p-2.5">
                   <span className="text-gray-400 font-bold">User Email:</span>
                   <div className="font-bold text-ksp-navy">{selectedLog.userEmail}</div>
@@ -445,7 +445,7 @@ export default function AuditPage() {
               <button
                 type="button"
                 onClick={() => setSelectedLog(null)}
-                className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200"
+                className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-600 hover:bg-gray-200 w-full sm:w-auto"
               >
                 Close Inspector
               </button>

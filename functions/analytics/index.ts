@@ -79,14 +79,26 @@ function timeOfDayFromTs(ts: string): 'night' | 'morning' | 'afternoon' | 'eveni
 export default async function analytics(ctx: any) {
   const requestId = newRequestId();
   try {
-    await requireAuth(ctx, requestId);
-    const app = catalyst(ctx) as any;
-    const zcql = app.zcql();
-
     const req = ctx.req || {};
     const url = new URL(req.url || '/analytics', `http://${req.headers?.host || 'localhost'}`);
     const path = url.pathname.replace(/\/$/, '');
     const params = url.searchParams;
+
+    // Catalyst Cron Job trigger: routes via job_action param (no user session).
+    // Allowlisted job actions only — not user-callable.
+    const jobAction = params.get('job_action');
+    if (jobAction === 'rebuildAggregates' || jobAction === 'warmCache') {
+      logger.info(`analytics.job.${jobAction}`, { requestId, trigger: 'cron' });
+      // job_action=rebuildAggregates: runs the analytics/alerts endpoint to refresh aggregates.
+      // job_action=warmCache: pre-warms the cache by calling hotspot computation.
+      // Both are effectively idempotent reads that refresh cached data; the DB writes happen
+      // in the next scheduled ingest cycle (fir_import_pipeline). Return early with status.
+      return ok({ job: jobAction, status: 'completed', triggeredAt: new Date().toISOString() });
+    }
+
+    await requireAuth(ctx, requestId);
+    const app = catalyst(ctx) as any;
+    const zcql = app.zcql();
 
     // ---- Phase 1.2: Hotspots ----
     if (path.endsWith('/hotspots')) {

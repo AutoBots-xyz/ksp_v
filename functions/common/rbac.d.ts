@@ -5,7 +5,7 @@
  *
  * Reference: README.md RBAC table, FRONTEND_ARCHITECTURE.md, BACKEND_ARCHITECTURE.md #4.
  */
-export declare const ROLES: readonly ["SUPER_ADMIN", "SCRB_ANALYST", "DISTRICT_COMMAND", "SHO", "IO", "DATA_OPERATOR", "AUDITOR", "VIEWER"];
+export declare const ROLES: readonly ["DEVELOPER", "SUPER_ADMIN", "SCRB_ANALYST", "DISTRICT_COMMAND", "SHO", "IO", "DATA_OPERATOR", "AUDITOR", "VIEWER"];
 export type Role = (typeof ROLES)[number];
 export declare function isRole(r: unknown): r is Role;
 /** Roles that can read full PII (names, caste, religion, age). */

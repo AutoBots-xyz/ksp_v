@@ -51,22 +51,22 @@ export function GlobalSearchBar() {
   }, [query]);
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div className="relative w-full" ref={containerRef}>
       <div className="relative flex items-center">
-        <span className="absolute left-3 text-gray-400 text-sm">🔍</span>
+        <span className="absolute left-3 text-muted-foreground text-sm">🔍</span>
         <input
           type="text"
           placeholder="Search cases, criminals..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => { if (query.length >= 3) setIsOpen(true) }}
-          className="w-64 md:w-80 rounded-full bg-slate-800 border border-slate-700 py-1.5 pl-9 pr-4 text-xs text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-ksp-blue transition-all"
+          className="w-full rounded-full bg-secondary/50 border border-border py-1.5 pl-9 pr-4 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-all"
         />
-        {loading && <span className="absolute right-3 text-gray-400 text-[10px] animate-pulse">...</span>}
+        {loading && <span className="absolute right-3 text-muted-foreground text-[10px] animate-pulse">...</span>}
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-full max-h-[70vh] overflow-y-auto rounded-xl bg-white shadow-xl border border-gray-200 z-50 p-2">
+        <div className="absolute top-full left-0 right-0 mt-2 max-h-[70vh] overflow-y-auto rounded-xl bg-card shadow-xl border border-border z-50 p-2">
           
           {/* Cases Results */}
           {results.cases.length > 0 && (
@@ -105,7 +105,7 @@ export function GlobalSearchBar() {
 
           {results.cases.length === 0 && results.entities.length === 0 && !loading && (
             <div className="p-4 text-center text-xs text-gray-500">
-              No results found for "{query}"
+              No results found for &ldquo;{query}&rdquo;
             </div>
           )}
         </div>

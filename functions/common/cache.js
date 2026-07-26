@@ -24,8 +24,28 @@ function hashFilters(filters) {
     return Math.abs(h).toString(36);
 }
 /** Get-or-compute helper implementing cache-aside. */
-async function cacheAside(_cacheInstance, _key, _ttl, compute) {
-    // STUB (2B): real Catalyst Cache get/set wired then.
-    return compute();
+async function cacheAside(cacheInstance, key, ttl, compute) {
+    if (cacheInstance && typeof cacheInstance.get === 'function') {
+        try {
+            const cached = await cacheInstance.get(key);
+            if (cached) {
+                return typeof cached === 'string' ? JSON.parse(cached) : cached;
+            }
+        }
+        catch {
+            // Cache miss or SDK error; fall through to compute
+        }
+    }
+    const computed = await compute();
+    if (cacheInstance && typeof cacheInstance.put === 'function' && computed != null) {
+        try {
+            const valueToStore = typeof computed === 'object' ? JSON.stringify(computed) : computed;
+            await cacheInstance.put(key, valueToStore, ttl);
+        }
+        catch {
+            // Invalidation or cache storage error non-blocking
+        }
+    }
+    return computed;
 }
 //# sourceMappingURL=cache.js.map

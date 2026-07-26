@@ -4,20 +4,8 @@
     "type": "webapp",
     "scope": "ksp"
   },
-  "deployment": {
-    "client": {
-      "target": "hosting",
-      "path": "apps/web",
-      "build": "npm run build --workspace apps/web",
-      "output": "apps/web/out"
-    },
-    "functions": {
-      "target": "serverless",
-      "path": "functions",
-      "stack": "nodejs20"
-    }
-  },
   "functions": {
+    "source": "functions",
     "targets": [
       "health",
       "auth_context",
@@ -31,18 +19,21 @@
       "admin",
       "ingest",
       "entities",
-      "search"
+      "search",
+      "offenders"
     ],
-    "source": "functions",
-    "ignore": []
+    "ignore": [
+      "node_modules",
+      "dist",
+      "*.log"
+    ]
   },
-  "client": {
-    "source": "apps/web",
-    "ignore": [],
-    "scripts": {
-      "predeploy": "npm run build --workspace apps/web"
+  "slate": [
+    {
+      "name": "ksp",
+      "source": "apps/web"
     }
-  },
+  ],
   "api_gateway": {
     "base_path": "/api/v1",
     "auth": true,

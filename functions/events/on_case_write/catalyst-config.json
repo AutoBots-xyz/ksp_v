@@ -2,5 +2,8 @@
   "name": "on_case_write",
   "type": "event",
   "category": "Event Function",
-  "description": "Signal: CaseMaster insert/update -> mark aggregates dirty"
+  "description": "Signal: CaseMaster insert/update -> mark aggregates dirty",
+  "stack": "node20",
+  "main": "index.js",
+  "path": "index.js"
 }

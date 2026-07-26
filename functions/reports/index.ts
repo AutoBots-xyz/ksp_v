@@ -349,12 +349,32 @@ async function runGeneration(jobId: string, ctx: any): Promise<void> {
     const smartbrowz = app.smartbrowz();
     const filestore = app.filestore();
     
-    // 1. Generate PDF using SmartBrowz
-    // In a real implementation, this would point to the internal template renderer
-    const pdfBuffer = await smartbrowz.generatePdf({
-      type: "url",
-      url: `https://www.example.com/reports/${job.template}`
-    });
+    // SmartBrowz PDF generation.
+    // STRATUS_TEMPLATE_BASE_URL must be set to the Catalyst Slate URL
+    // (e.g. https://ksp-XXXXXX.development.catalystserverless.com/app/reports/template)
+    // after deploying. If not set, falls back to HTML inline template mode.
+    const templateBaseUrl = process.env.STRATUS_TEMPLATE_BASE_URL;
+    let pdfBuffer: Buffer;
+    if (templateBaseUrl) {
+      pdfBuffer = await smartbrowz.generatePdf({
+        type: 'url',
+        url: `${templateBaseUrl}/${job.template}?jobId=${jobId}&dateFrom=${job.filters.dateFrom}&dateTo=${job.filters.dateTo}`,
+      });
+    } else {
+      // Fallback: generate a minimal HTML report when template URL is not yet configured.
+      // Replace this with a full HTML template or the Slate URL once deployed.
+      const htmlContent = `<!DOCTYPE html><html><head><title>${job.template} Report</title></head><body>
+        <h1>KSP Intelligence Report: ${job.template}</h1>
+        <p>Generated: ${new Date().toISOString()}</p>
+        <p>Date Range: ${job.filters.dateFrom} to ${job.filters.dateTo}</p>
+        <p>District: ${job.filters.districtId ?? 'State-wide'}</p>
+        <p><em>Configure STRATUS_TEMPLATE_BASE_URL env var to use the full template renderer.</em></p>
+      </body></html>`;
+      pdfBuffer = await smartbrowz.generatePdf({
+        type: 'html',
+        html: htmlContent,
+      });
+    }
 
     // 2. Upload to Stratus (Filestore)
     // Fallback to folder 1000 if not configured

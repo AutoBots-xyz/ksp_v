@@ -3,6 +3,31 @@ export default function ai(ctx: any): Promise<{
     success: true;
     data: {
         source: string;
+        status: string;
+        modelVersion: string;
+        trainedAt: string;
+        prediction: {} | null;
+        rawResponse: Record<string, unknown>;
+        message: string;
+    };
+} | {
+    meta?: Record<string, unknown> | undefined;
+    success: true;
+    data: {
+        source: string;
+        status: string;
+        modelVersion: null;
+        message: string;
+    };
+} | {
+    meta?: Record<string, unknown> | undefined;
+    success: true;
+    data: any[];
+} | {
+    meta?: Record<string, unknown> | undefined;
+    success: true;
+    data: {
+        source: string;
         analysis: {
             keywords: any;
             sentiment: any;

@@ -3,6 +3,6 @@
   "description": "Emerging trend + anomaly scan, write alerts (sub-phase 4B/4D)",
   "cron": "0 * * * *",
   "timezone": "Asia/Kolkata",
-  "function": "functions/ai/index.ts",
-  "action": "scanAnomalies"
+  "function": "ai",
+  "params": { "job_action": "scanAnomalies" }
 }

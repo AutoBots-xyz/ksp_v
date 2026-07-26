@@ -10,6 +10,7 @@ function caseScopeFilter(scope) {
     if (!scope.active)
         return { denyAll: true };
     switch (scope.role) {
+        case 'DEVELOPER':
         case 'SUPER_ADMIN':
         case 'SCRB_ANALYST':
             return { state: true };
