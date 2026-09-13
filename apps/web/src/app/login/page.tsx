@@ -93,39 +93,84 @@ export default function LoginPage() {
           )}
         </div>
 
-        {/* Quick Dev Access Button — Always visible in local dev mode or when init.js fails */}
-        {(process.env.NODE_ENV === 'development' || initError) && (
-          <div className="mb-6 rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-xs font-bold text-blue-950 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>⚡</span> Local Dev Bypass
-                </h3>
-                <p className="text-xs text-blue-800 mt-0.5">Skip cloud auth &amp; enter dashboard with mock data.</p>
-              </div>
+        {/* Fast Demo Access & Role Bypass — Always visible for testing and evaluation */}
+        <div className="mb-6 rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div>
+              <h3 className="text-xs font-bold text-blue-950 uppercase tracking-wider flex items-center gap-1.5">
+                <span>⚡</span> Quick Demo Access
+              </h3>
+              <p className="text-xs text-blue-800 mt-0.5">Instant 1-click access to the Karnataka Police Hub.</p>
+            </div>
+            <button
+              id="direct-hub-btn"
+              onClick={() => {
+                document.cookie = "dev_session=true; path=/; max-age=86400";
+                localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
+                window.location.href = '/hub';
+              }}
+              className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5"
+            >
+              <span>Direct Go to Hub</span>
+              <span>&rarr;</span>
+            </button>
+          </div>
+
+          <div className="border-t border-blue-200/60 pt-2.5">
+            <p className="text-[11px] font-semibold text-blue-900 mb-1.5">Or choose a police role persona:</p>
+            <div className="grid grid-cols-2 gap-1.5 text-xs">
               <button
                 onClick={() => {
                   document.cookie = "dev_session=true; path=/; max-age=86400";
+                  localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
                   window.location.href = '/hub';
                 }}
-                className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5"
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
               >
-                <span>Direct Go to Hub</span>
-                <span>&rarr;</span>
+                👮 SCRB Analyst
+              </button>
+              <button
+                onClick={() => {
+                  document.cookie = "dev_session=true; path=/; max-age=86400";
+                  localStorage.setItem('ksp_demo_role', 'SUPER_ADMIN');
+                  window.location.href = '/admin';
+                }}
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+              >
+                🛡️ Super Admin
+              </button>
+              <button
+                onClick={() => {
+                  document.cookie = "dev_session=true; path=/; max-age=86400";
+                  localStorage.setItem('ksp_demo_role', 'DISTRICT_COMMAND');
+                  window.location.href = '/district';
+                }}
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+              >
+                🏢 District SP
+              </button>
+              <button
+                onClick={() => {
+                  document.cookie = "dev_session=true; path=/; max-age=86400";
+                  localStorage.setItem('ksp_demo_role', 'SHO');
+                  window.location.href = '/station';
+                }}
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+              >
+                🚨 Station SHO
               </button>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* Local Dev Banner Notice if served outside Catalyst CLI */}
-        {initError && (
-          <div className="mb-4 rounded-md border border-blue-200 bg-blue-50 p-3 text-xs text-blue-900">
-            <span className="font-semibold">ℹ Note for Local Development:</span>
-            <p className="mt-1">
-              <code>/__catalyst/sdk/init.js</code> is provided when running through <code>catalyst serve</code> or deployed to Web Client Hosting. Use the button above to proceed directly to the Hub.
-            </p>
-          </div>
-        )}
+        <div className="relative my-4 flex items-center justify-center">
+          <div className="border-t border-slate-200 w-full"></div>
+          <span className="bg-white px-3 text-[11px] font-medium text-slate-400 shrink-0 uppercase tracking-wider">
+            Or Zoho Catalyst Sign In
+          </span>
+          <div className="border-t border-slate-200 w-full"></div>
+        </div>
+
 
         {/* Target container element required by catalyst.auth.signIn("loginDivElementId", config) */}
         <div
