@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { api } from '@/lib/api-client';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [health, setHealth] = useState<{ status: string; env: string } | null>(null);
+
   const [sdkLoaded, setSdkLoaded] = useState(false);
   const [initLoaded, setInitLoaded] = useState(false);
   const [initError, setInitError] = useState(false);
@@ -104,12 +107,18 @@ export default function LoginPage() {
             </div>
             <button
               id="direct-hub-btn"
+              type="button"
               onClick={() => {
-                document.cookie = "dev_session=true; path=/; max-age=86400";
-                localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
-                window.location.href = '/hub';
+                document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
+                document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
+                document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
+                try {
+                  localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
+                } catch {}
+                router.push('/hub/');
+                setTimeout(() => { window.location.href = '/hub/'; }, 100);
               }}
-              className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5"
+              className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>Direct Go to Hub</span>
               <span>&rarr;</span>
@@ -120,42 +129,66 @@ export default function LoginPage() {
             <p className="text-[11px] font-semibold text-blue-900 mb-1.5">Or choose a police role persona:</p>
             <div className="grid grid-cols-2 gap-1.5 text-xs">
               <button
+                type="button"
                 onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400";
-                  localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
-                  window.location.href = '/hub';
+                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  try {
+                    localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
+                  } catch {}
+                  router.push('/hub/');
+                  setTimeout(() => { window.location.href = '/hub/'; }, 100);
                 }}
-                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 👮 SCRB Analyst
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400";
-                  localStorage.setItem('ksp_demo_role', 'SUPER_ADMIN');
-                  window.location.href = '/admin';
+                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  try {
+                    localStorage.setItem('ksp_demo_role', 'SUPER_ADMIN');
+                  } catch {}
+                  router.push('/admin/');
+                  setTimeout(() => { window.location.href = '/admin/'; }, 100);
                 }}
-                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🛡️ Super Admin
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400";
-                  localStorage.setItem('ksp_demo_role', 'DISTRICT_COMMAND');
-                  window.location.href = '/district';
+                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  try {
+                    localStorage.setItem('ksp_demo_role', 'DISTRICT_COMMAND');
+                  } catch {}
+                  router.push('/district/');
+                  setTimeout(() => { window.location.href = '/district/'; }, 100);
                 }}
-                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🏢 District SP
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400";
-                  localStorage.setItem('ksp_demo_role', 'SHO');
-                  window.location.href = '/station';
+                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
+                  try {
+                    localStorage.setItem('ksp_demo_role', 'SHO');
+                  } catch {}
+                  router.push('/station/');
+                  setTimeout(() => { window.location.href = '/station/'; }, 100);
                 }}
-                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left"
+                className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🚨 Station SHO
               </button>
