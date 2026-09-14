@@ -35,9 +35,14 @@ const DISTRICT_DATA: DistrictStat[] = [
 
 export default function HubPage() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [selectedRange, setSelectedRange] = useState<'7d' | '30d' | 'ytd'>('30d');
   const [activeCategory, setActiveCategory] = useState<'ipc' | 'sll' | 'cyber'>('ipc');
   const [selectedDistrict, setSelectedDistrict] = useState('ALL');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Phase 1.3: real emerging alerts from api.analytics.alerts() (rolling baseline).
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
@@ -269,7 +274,7 @@ export default function HubPage() {
             </div>
           </CardHeader>
           <CardContent className="flex-1 pt-4 pb-6 min-h-[300px]">
-            {trendLoading ? (
+            {!mounted || trendLoading ? (
               <div className="flex h-full items-center justify-center text-sm text-muted-foreground animate-pulse">
                 Loading trend series (ZCQL aggregation)…
               </div>

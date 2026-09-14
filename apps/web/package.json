@@ -5,7 +5,7 @@
   "description": "KSP Crime Intelligence web client (Next.js App Router on Catalyst Slate/Web Client Hosting)",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node postbuild.js",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "next lint"
