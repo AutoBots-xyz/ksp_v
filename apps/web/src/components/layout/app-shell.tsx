@@ -81,7 +81,18 @@ export function AppShell({ title, scope, children }: AppShellProps) {
   };
 
   const handleLogout = () => {
-    router.push('/login');
+    document.cookie = 'dev_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = '__zlb=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'catalyst_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    if (typeof window !== 'undefined' && window.catalyst?.auth?.signOut) {
+      try {
+        window.catalyst.auth.signOut('/index.html');
+        return;
+      } catch (e) {
+        console.warn('SignOut error:', e);
+      }
+    }
+    window.location.href = '/index.html';
   };
 
   const persona = PERSONAS[activeRole] || PERSONAS.SCRB_ANALYST;

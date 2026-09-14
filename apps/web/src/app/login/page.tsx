@@ -15,7 +15,7 @@ export default function LoginPage() {
   useEffect(() => {
     // If loaded inside an iframe (e.g. from a post-login redirect), break out to parent window
     if (typeof window !== 'undefined' && window.top && window.top !== window.self) {
-      window.top.location.replace('/hub/');
+      window.top.location.replace('/hub/index.html');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function LoginPage() {
             .then((authenticated: any) => {
               if (authenticated) {
                 setIsRedirecting(true);
-                window.location.replace('/hub/');
+                window.location.replace('/hub/index.html');
               } else {
                 renderSignInIframe();
               }
@@ -49,7 +49,7 @@ export default function LoginPage() {
           return;
         } else if (authCheck) {
           setIsRedirecting(true);
-          window.location.replace('/hub/');
+          window.location.replace('/hub/index.html');
           return;
         }
       } catch (e) {
@@ -65,9 +65,9 @@ export default function LoginPage() {
 
       try {
         // Configuration passed to Catalyst Embedded Auth SDK
-        // service_url set to '/hub/' (main landing dashboard route with trailing slash)
+        // service_url set to '/hub/index.html' (direct static entrypoint)
         const config = {
-          service_url: '/hub/',
+          service_url: '/hub/index.html',
           is_customize_forgot_password: false,
         };
 
@@ -88,7 +88,7 @@ export default function LoginPage() {
     } catch (err) {
       console.warn('LocalStorage unavailable:', err);
     }
-    window.location.replace(targetPath);
+    window.location.href = targetPath;
   };
 
   return (
@@ -155,7 +155,7 @@ export default function LoginPage() {
             <button
               id="direct-hub-btn"
               type="button"
-              onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
+              onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/index.html')}
               className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>Direct Go to Hub</span>
@@ -168,28 +168,28 @@ export default function LoginPage() {
             <div className="grid grid-cols-2 gap-1.5 text-xs">
               <button
                 type="button"
-                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
+                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/index.html')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 👮 SCRB Analyst
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickLogin('SUPER_ADMIN', '/admin/')}
+                onClick={() => handleQuickLogin('SUPER_ADMIN', '/admin/index.html')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🛡️ Super Admin
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickLogin('DISTRICT_COMMAND', '/district/')}
+                onClick={() => handleQuickLogin('DISTRICT_COMMAND', '/district/index.html')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🏢 District SP
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickLogin('SHO', '/station/')}
+                onClick={() => handleQuickLogin('SHO', '/station/index.html')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🚨 Station SHO
@@ -224,7 +224,7 @@ export default function LoginPage() {
                 Running in standalone development mode without Zoho Cloud credentials.
               </p>
               <button
-                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
+                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/index.html')}
                 className="w-full rounded bg-blue-600 py-2 px-4 text-xs font-bold text-white shadow hover:bg-blue-700 transition"
               >
                 Enter Prototype Dashboard &rarr;
