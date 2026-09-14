@@ -1,19 +1,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { api } from '@/lib/api-client';
 
 export default function LoginPage() {
-  const router = useRouter();
   const [health, setHealth] = useState<{ status: string; env: string } | null>(null);
 
   const [sdkLoaded, setSdkLoaded] = useState(false);
   const [initLoaded, setInitLoaded] = useState(false);
   const [initError, setInitError] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
+    // If loaded inside an iframe (e.g. from a post-login redirect), break out to parent window
+    if (typeof window !== 'undefined' && window.top && window.top !== window.self) {
+      window.top.location.replace('/hub/');
+      return;
+    }
+
     api.health()
       .then(setHealth)
       .catch(() => setHealth(null));
@@ -24,23 +29,67 @@ export default function LoginPage() {
     if (!sdkLoaded || !initLoaded) return;
     if (typeof window === 'undefined' || !window.catalyst?.auth) return;
 
-    const loginContainer = document.getElementById('loginDivElementId');
-    if (!loginContainer) return;
+    // First check if user is already authenticated to prevent recursive iframe rendering
+    if (typeof window.catalyst.auth.isUserAuthenticated === 'function') {
+      try {
+        const authCheck = window.catalyst.auth.isUserAuthenticated();
+        if (authCheck instanceof Promise) {
+          authCheck
+            .then((authenticated: any) => {
+              if (authenticated) {
+                setIsRedirecting(true);
+                window.location.replace('/hub/');
+              } else {
+                renderSignInIframe();
+              }
+            })
+            .catch(() => {
+              renderSignInIframe();
+            });
+          return;
+        } else if (authCheck) {
+          setIsRedirecting(true);
+          window.location.replace('/hub/');
+          return;
+        }
+      } catch (e) {
+        console.warn('[CatalystAuth] isUserAuthenticated check error:', e);
+      }
+    }
 
-    try {
-      // Configuration passed to Catalyst Embedded Auth SDK
-      // Ground Truth: service_url set to '/hub' (main landing dashboard route)
-      const config = {
-        service_url: '/hub',
-        is_customize_forgot_password: false,
-      };
+    renderSignInIframe();
 
-      // Renders embedded authentication iframe inside #loginDivElementId
-      window.catalyst.auth.signIn('loginDivElementId', config);
-    } catch (err) {
-      console.error('[CatalystAuth] Failed to initialize embedded login iframe:', err);
+    function renderSignInIframe() {
+      const loginContainer = document.getElementById('loginDivElementId');
+      if (!loginContainer) return;
+
+      try {
+        // Configuration passed to Catalyst Embedded Auth SDK
+        // service_url set to '/hub/' (main landing dashboard route with trailing slash)
+        const config = {
+          service_url: '/hub/',
+          is_customize_forgot_password: false,
+        };
+
+        // Renders embedded authentication iframe inside #loginDivElementId
+        window.catalyst?.auth?.signIn('loginDivElementId', config);
+      } catch (err) {
+        console.error('[CatalystAuth] Failed to initialize embedded login iframe:', err);
+      }
     }
   }, [sdkLoaded, initLoaded]);
+
+  const handleQuickLogin = (role: string, targetPath: string) => {
+    document.cookie = 'dev_session=true; path=/; max-age=86400; SameSite=Lax';
+    document.cookie = '__zlb=demo_session; path=/; max-age=86400; SameSite=Lax';
+    document.cookie = 'catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax';
+    try {
+      localStorage.setItem('ksp_demo_role', role);
+    } catch (err) {
+      console.warn('LocalStorage unavailable:', err);
+    }
+    window.location.replace(targetPath);
+  };
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-ksp-navy to-ksp-blue p-4 sm:p-6">
@@ -49,7 +98,6 @@ export default function LoginPage() {
         src="https://static.zohocdn.com/catalyst/sdk/js/4.6.2/catalystWebSDK.js"
         strategy="afterInteractive"
         onLoad={() => {
-          console.log('[CatalystAuth] catalystWebSDK.js loaded.');
           setSdkLoaded(true);
         }}
         onError={(e) => {
@@ -62,7 +110,6 @@ export default function LoginPage() {
         src="/__catalyst/sdk/init.js"
         strategy="afterInteractive"
         onLoad={() => {
-          console.log('[CatalystAuth] /__catalyst/sdk/init.js loaded.');
           setInitLoaded(true);
         }}
         onError={() => {
@@ -108,16 +155,7 @@ export default function LoginPage() {
             <button
               id="direct-hub-btn"
               type="button"
-              onClick={() => {
-                document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
-                document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
-                document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
-                try {
-                  localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
-                } catch {}
-                router.push('/hub/');
-                setTimeout(() => { window.location.href = '/hub/'; }, 100);
-              }}
+              onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
               className="shrink-0 rounded-md bg-ksp-navy px-4 py-2.5 text-xs font-bold text-white shadow hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>Direct Go to Hub</span>
@@ -130,64 +168,28 @@ export default function LoginPage() {
             <div className="grid grid-cols-2 gap-1.5 text-xs">
               <button
                 type="button"
-                onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  try {
-                    localStorage.setItem('ksp_demo_role', 'SCRB_ANALYST');
-                  } catch {}
-                  router.push('/hub/');
-                  setTimeout(() => { window.location.href = '/hub/'; }, 100);
-                }}
+                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 👮 SCRB Analyst
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  try {
-                    localStorage.setItem('ksp_demo_role', 'SUPER_ADMIN');
-                  } catch {}
-                  router.push('/admin/');
-                  setTimeout(() => { window.location.href = '/admin/'; }, 100);
-                }}
+                onClick={() => handleQuickLogin('SUPER_ADMIN', '/admin/')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🛡️ Super Admin
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  try {
-                    localStorage.setItem('ksp_demo_role', 'DISTRICT_COMMAND');
-                  } catch {}
-                  router.push('/district/');
-                  setTimeout(() => { window.location.href = '/district/'; }, 100);
-                }}
+                onClick={() => handleQuickLogin('DISTRICT_COMMAND', '/district/')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🏢 District SP
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "__zlb=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  document.cookie = "catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax";
-                  try {
-                    localStorage.setItem('ksp_demo_role', 'SHO');
-                  } catch {}
-                  router.push('/station/');
-                  setTimeout(() => { window.location.href = '/station/'; }, 100);
-                }}
+                onClick={() => handleQuickLogin('SHO', '/station/')}
                 className="rounded border border-blue-200 bg-white px-2 py-1.5 text-[11px] font-medium text-blue-900 hover:bg-blue-50 text-left cursor-pointer"
               >
                 🚨 Station SHO
@@ -204,13 +206,17 @@ export default function LoginPage() {
           <div className="border-t border-slate-200 w-full"></div>
         </div>
 
-
         {/* Target container element required by catalyst.auth.signIn("loginDivElementId", config) */}
         <div
           id="loginDivElementId"
           className="min-h-[280px] w-full rounded-lg border border-slate-200 bg-slate-50/50 p-4 flex items-center justify-center"
         >
-          {initError ? (
+          {isRedirecting ? (
+            <div className="text-center text-xs font-medium text-emerald-600">
+              <div className="mb-2 h-5 w-5 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent mx-auto" />
+              Authenticated! Redirecting to Karnataka Police Hub...
+            </div>
+          ) : initError ? (
             <div className="text-center py-6 max-w-xs">
               <div className="mb-2 text-2xl">🛡️</div>
               <p className="text-xs font-semibold text-slate-700 mb-1">Catalyst Cloud Auth Bypassed</p>
@@ -218,10 +224,7 @@ export default function LoginPage() {
                 Running in standalone development mode without Zoho Cloud credentials.
               </p>
               <button
-                onClick={() => {
-                  document.cookie = "dev_session=true; path=/; max-age=86400";
-                  window.location.href = '/hub';
-                }}
+                onClick={() => handleQuickLogin('SCRB_ANALYST', '/hub/')}
                 className="w-full rounded bg-blue-600 py-2 px-4 text-xs font-bold text-white shadow hover:bg-blue-700 transition"
               >
                 Enter Prototype Dashboard &rarr;

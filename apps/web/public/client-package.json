@@ -1,6 +1,6 @@
 {
   "name": "ksp",
   "version": "0.1.0",
-  "homepage": "/",
-  "login_redirect": "/"
+  "homepage": "/hub/",
+  "login_redirect": "/hub/"
 }
