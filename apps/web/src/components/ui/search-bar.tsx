@@ -55,11 +55,14 @@ export function GlobalSearchBar() {
       <div className="relative flex items-center">
         <span className="absolute left-3 text-muted-foreground text-sm">🔍</span>
         <input
+          id="global-search-input"
+          name="globalSearch"
           type="text"
           placeholder="Search cases, criminals..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => { if (query.length >= 3) setIsOpen(true) }}
+          autoComplete="off"
           className="w-full rounded-full bg-secondary/50 border border-border py-1.5 pl-9 pr-4 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-all"
         />
         {loading && <span className="absolute right-3 text-muted-foreground text-[10px] animate-pulse">...</span>}

@@ -96,7 +96,8 @@ export function AppShell({ title, scope, children }: AppShellProps) {
   };
 
   const persona = PERSONAS[activeRole] || PERSONAS.SCRB_ANALYST;
-  const visibleNav = NAV.filter((item) => canAccessRoute(item.href, activeRole));
+  const safeNav = Array.isArray(NAV) ? NAV : [];
+  const visibleNav = safeNav.filter((item) => canAccessRoute(item.href, activeRole));
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background font-sans text-foreground ksp-command-grid">

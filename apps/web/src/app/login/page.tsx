@@ -22,6 +22,22 @@ export default function LoginPage() {
     api.health()
       .then(setHealth)
       .catch(() => setHealth(null));
+
+    // Safely probe /__catalyst/sdk/init.js to avoid SyntaxError if server returns HTML SPA fallback
+    fetch('/__catalyst/sdk/init.js')
+      .then((res) => {
+        const ct = res.headers.get('content-type') || '';
+        if (res.ok && (ct.includes('javascript') || ct.includes('ecmascript'))) {
+          const script = document.createElement('script');
+          script.src = '/__catalyst/sdk/init.js';
+          script.onload = () => setInitLoaded(true);
+          script.onerror = () => setInitError(true);
+          document.head.appendChild(script);
+        } else {
+          setInitError(true);
+        }
+      })
+      .catch(() => setInitError(true));
   }, []);
 
   // Initialize Catalyst Embedded Auth iframe once both SDK & init.js scripts are loaded in browser
@@ -40,11 +56,11 @@ export default function LoginPage() {
                 setIsRedirecting(true);
                 window.location.replace('/hub/index.html');
               } else {
-                renderSignInIframe();
+                renderCatalystAuthWidget();
               }
             })
             .catch(() => {
-              renderSignInIframe();
+              renderCatalystAuthWidget();
             });
           return;
         } else if (authCheck) {
@@ -52,41 +68,32 @@ export default function LoginPage() {
           window.location.replace('/hub/index.html');
           return;
         }
-      } catch (e) {
-        console.warn('[CatalystAuth] isUserAuthenticated check error:', e);
-      }
-    }
-
-    renderSignInIframe();
-
-    function renderSignInIframe() {
-      const loginContainer = document.getElementById('loginDivElementId');
-      if (!loginContainer) return;
-
-      try {
-        // Configuration passed to Catalyst Embedded Auth SDK
-        // service_url set to '/hub/index.html' (direct static entrypoint)
-        const config = {
-          service_url: '/hub/index.html',
-          is_customize_forgot_password: false,
-        };
-
-        // Renders embedded authentication iframe inside #loginDivElementId
-        window.catalyst?.auth?.signIn('loginDivElementId', config);
       } catch (err) {
-        console.error('[CatalystAuth] Failed to initialize embedded login iframe:', err);
+        console.warn('isUserAuthenticated error:', err);
       }
     }
+
+    renderCatalystAuthWidget();
   }, [sdkLoaded, initLoaded]);
 
-  const handleQuickLogin = (role: string, targetPath: string) => {
-    document.cookie = 'dev_session=true; path=/; max-age=86400; SameSite=Lax';
-    document.cookie = '__zlb=demo_session; path=/; max-age=86400; SameSite=Lax';
-    document.cookie = 'catalyst_session=demo_session; path=/; max-age=86400; SameSite=Lax';
+  const renderCatalystAuthWidget = () => {
     try {
-      localStorage.setItem('ksp_demo_role', role);
+      const config = {
+        css_url: '',
+      };
+      if (window.catalyst?.auth?.signIn) {
+        window.catalyst.auth.signIn('loginDivElementId', config);
+      }
     } catch (err) {
-      console.warn('LocalStorage unavailable:', err);
+      console.warn('catalyst.auth.signIn error:', err);
+      setInitError(true);
+    }
+  };
+
+  const handleQuickLogin = (role: string, targetPath: string) => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('ksp_demo_role', role);
+      document.cookie = `dev_session=${role}; path=/; max-age=86400`;
     }
     window.location.href = targetPath;
   };
@@ -102,19 +109,6 @@ export default function LoginPage() {
         }}
         onError={(e) => {
           console.error('[CatalystAuth] Failed to load catalystWebSDK.js', e);
-        }}
-      />
-
-      {/* 2. Catalyst Project Environment Initialization script */}
-      <Script
-        src="/__catalyst/sdk/init.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          setInitLoaded(true);
-        }}
-        onError={() => {
-          console.warn('[CatalystAuth] /__catalyst/sdk/init.js not found (expected during standalone npm run dev).');
-          setInitError(true);
         }}
       />
 

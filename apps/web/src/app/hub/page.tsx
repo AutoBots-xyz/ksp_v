@@ -70,9 +70,12 @@ export default function HubPage() {
       setAlertsError(null);
       try {
         const data = await api.analytics.alerts();
-        if (!cancelled) setAlerts(data);
+        if (!cancelled) setAlerts(Array.isArray(data) ? data : []);
       } catch (err) {
-        if (!cancelled) setAlertsError(err instanceof Error ? err.message : 'Failed to load alerts');
+        if (!cancelled) {
+          setAlertsError(err instanceof Error ? err.message : 'Failed to load alerts');
+          setAlerts([]);
+        }
       } finally {
         if (!cancelled) setAlertsLoading(false);
       }
@@ -87,7 +90,7 @@ export default function HubPage() {
       setTrendLoading(true);
       try {
         const data = await api.analytics.trends({ range: selectedRange });
-        if (!cancelled) setTrendData(data);
+        if (!cancelled) setTrendData(Array.isArray(data) ? data : []);
       } catch {
         if (!cancelled) setTrendData([]);
       } finally {
@@ -97,19 +100,22 @@ export default function HubPage() {
     return () => { cancelled = true; };
   }, [selectedRange]);
 
-  const currentTrendPoints = trendData;
+  const currentTrendPoints = Array.isArray(trendData) ? trendData : [];
 
-  const filteredDistricts = DISTRICT_DATA.filter((d) => {
-    if (selectedDistrict !== 'ALL' && d.name !== selectedDistrict) return false;
+  const safeDistricts = Array.isArray(DISTRICT_DATA) ? DISTRICT_DATA : [];
+  const filteredDistricts = safeDistricts.filter((d) => {
+    if (selectedDistrict !== 'ALL' && d?.name !== selectedDistrict) return false;
     return true;
   });
 
-  const filteredAlerts = alerts.filter((a) => {
+  const safeAlerts = Array.isArray(alerts) ? alerts : [];
+  const filteredAlerts = safeAlerts.filter((a) => {
+    if (!a) return false;
     if (alertSeverityFilter !== 'ALL' && a.severity !== alertSeverityFilter) return false;
     return true;
   });
 
-  const targetDist = DISTRICT_DATA.find((d) => d.name === selectedDistrict);
+  const targetDist = safeDistricts.find((d) => d?.name === selectedDistrict);
   const totalFirs = targetDist ? targetDist.total : 42850;
   const heinousCount = targetDist ? targetDist.heinous : 1240;
 
@@ -129,7 +135,7 @@ export default function HubPage() {
       spikeRatio: 0,
     };
 
-    setAlerts([newAlert, ...alerts]);
+    setAlerts((prev) => [newAlert, ...(Array.isArray(prev) ? prev : [])]);
     setShowBroadcastModal(false);
     setBroadcastTitle('');
     setBroadcastDesc('');
@@ -175,6 +181,8 @@ export default function HubPage() {
           <div className="flex items-center gap-2">
             <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground font-mono">DISTRICT:</span>
             <select
+              id="hub-district-filter"
+              name="selectedDistrict"
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
               className="rounded-none border-b-2 border-border bg-transparent px-2 sm:px-3 py-1 text-sm font-bold text-foreground focus:outline-none focus:border-primary font-mono uppercase"
@@ -442,6 +450,8 @@ export default function HubPage() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium leading-none text-foreground">Target District</label>
                     <select
+                      id="broadcast-district"
+                      name="broadcastDistrict"
                       value={broadcastDistrict}
                       onChange={(e) => setBroadcastDistrict(e.target.value)}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
@@ -452,8 +462,10 @@ export default function HubPage() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none text-foreground">Severity Level</label>
+                    <label htmlFor="broadcast-severity" className="text-sm font-medium leading-none text-foreground">Severity Level</label>
                     <select
+                      id="broadcast-severity"
+                      name="broadcastSeverity"
                       value={broadcastSeverity}
                       onChange={(e) => setBroadcastSeverity(e.target.value as any)}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
@@ -466,8 +478,10 @@ export default function HubPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none text-foreground">Advisory Title</label>
+                  <label htmlFor="broadcast-title" className="text-sm font-medium leading-none text-foreground">Advisory Title</label>
                   <Input
+                    id="broadcast-title"
+                    name="broadcastTitle"
                     type="text"
                     placeholder="E.g., Surge in Night Burglaries"
                     value={broadcastTitle}
@@ -477,8 +491,10 @@ export default function HubPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none text-foreground">Intelligence Details</label>
+                  <label htmlFor="broadcast-details" className="text-sm font-medium leading-none text-foreground">Intelligence Details</label>
                   <textarea
+                    id="broadcast-details"
+                    name="broadcastDetails"
                     placeholder="Provide specific details and required actions..."
                     value={broadcastDesc}
                     onChange={(e) => setBroadcastDesc(e.target.value)}

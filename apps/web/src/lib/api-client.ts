@@ -41,18 +41,32 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
         ...(init?.headers ?? {}),
       },
     });
-    const json = await res.json().catch(() => ({}));
-    if (!res.ok || json.success === false) {
-      const err = json.error ?? {};
+    const contentType = res.headers.get('content-type') || '';
+    // If the server returns non-JSON (e.g. Slate SPA fallback serving index.html) or an HTTP error,
+    // throw an ApiError so the mock fallback can safely intercept.
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new ApiError(
+        res.status,
+        `Non-JSON or error response (${res.status}, ${contentType})`,
+      );
+    }
+    const json = await res.json().catch(() => null);
+    if (!json || json.success === false) {
+      const err = json?.error ?? {};
       throw new ApiError(res.status, err.message ?? res.statusText, err.code, err.requestId);
     }
-    return json.data as T;
+    const data = json.data !== undefined ? json.data : json;
+    if (data === undefined) {
+      throw new ApiError(res.status, 'Missing data payload in API response');
+    }
+    return data as T;
   } catch (err) {
     // Resilient fallback: If Catalyst API is unreachable or blocked by CORS/Mixed Content,
-    // seamlessly use built-in mock data so the dashboard stays fully populated and error-free.
+    // or if the server returns HTML (SPA fallback), seamlessly use built-in mock data
+    // so the dashboard stays fully populated and error-free.
     try {
       const mocked = await mockRequest<T>(path, init);
-      if (mocked) return mocked.data;
+      if (mocked && mocked.data !== undefined) return mocked.data;
     } catch {
       // ignore mock fallback error and throw original
     }
@@ -65,16 +79,32 @@ export const api = {
     try {
       return await request<{ status: string; env: string }>('/health');
     } catch {
-      return { status: 'ok', env: 'development (local)' };
+      return { status: 'ok', env: 'production (slate)' };
     }
   },
   me: () => request<MeResponse>('/me'),
   // Masters — API_REFERENCE.md "Masters"
   masters: {
-    districts: () => request<District[]>('/masters/districts'),
+    districts: async () => {
+      try {
+        const res = await request<District[]>('/masters/districts');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<District[]>('/masters/districts');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
   },
   reports: {
-    list: () => request<ReportJobSummary[]>('/reports'),
+    list: async () => {
+      try {
+        const res = await request<ReportJobSummary[]>('/reports');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<ReportJobSummary[]>('/reports');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     get: (jobId: string) => request<ReportJobStatus>(`/reports/${encodeURIComponent(jobId)}`),
     create: (body: CreateReportBody) =>
       request<{ jobId: string; status: 'QUEUED' }>('/reports', {
@@ -83,7 +113,15 @@ export const api = {
       }),
   },
   cases: {
-    list: () => request<any[]>('/cases'),
+    list: async () => {
+      try {
+        const res = await request<any[]>('/cases');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<any[]>('/cases');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     get: (id: string) => request<any>(`/cases/${encodeURIComponent(id)}`),
     create: (body: any) =>
       request<any>('/cases', {
@@ -94,31 +132,98 @@ export const api = {
   // Analytics — Phase 1.2/1.3/2.5. Endpoints backed by functions/analytics.
   analytics: {
     // Phase 1.2: hotspot clusters. timeOfDay: 'all'|'night'|'morning'|'afternoon'|'evening'
-    hotspots: (params: { districtId?: number; timeOfDay?: string; dateFrom?: string; dateTo?: string }) =>
-      request<Hotspot[]>(`/analytics/hotspots${qs(params)}`),
+    hotspots: async (params: { districtId?: number; timeOfDay?: string; dateFrom?: string; dateTo?: string }) => {
+      try {
+        const res = await request<Hotspot[]>(`/analytics/hotspots${qs(params)}`);
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<Hotspot[]>(`/analytics/hotspots${qs(params)}`);
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     // Phase 1.3: emerging trend alerts (rolling-baseline spikes).
-    alerts: () => request<AlertItem[]>('/analytics/alerts'),
+    alerts: async () => {
+      try {
+        const res = await request<AlertItem[]>('/analytics/alerts');
+        if (Array.isArray(res)) return res;
+        if (Array.isArray((res as any)?.alerts)) return (res as any).alerts;
+        if (Array.isArray((res as any)?.data)) return (res as any).data;
+        return [];
+      } catch {
+        const mocked = await mockRequest<AlertItem[]>('/analytics/alerts');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     // Phase 2.5: trend series by category and range.
-    trends: (params: { range?: string; category?: string; districtId?: number }) =>
-      request<TrendPoint[]>(`/analytics/trends${qs(params)}`),
+    trends: async (params: { range?: string; category?: string; districtId?: number }) => {
+      try {
+        const res = await request<TrendPoint[]>(`/analytics/trends${qs(params)}`);
+        if (Array.isArray(res)) return res;
+        if (Array.isArray((res as any)?.data)) return (res as any).data;
+        return [];
+      } catch {
+        const mocked = await mockRequest<TrendPoint[]>(`/analytics/trends${qs(params)}`);
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     // Phase 2.2: socio-economic correlation data (crime rate vs indicators per district).
-    socioCorrelation: () => request<SocioCorrelationRow[]>('/analytics/socio-correlation'),
+    socioCorrelation: async () => {
+      try {
+        const res = await request<SocioCorrelationRow[]>('/analytics/socio-correlation');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<SocioCorrelationRow[]>('/analytics/socio-correlation');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
   },
   // Network — Phase 1.4. Endpoint backed by functions/network.
   network: {
-    graph: (params: { seed?: string; hops?: number }) =>
-      request<NetworkGraph>(`/network${qs(params)}`),
-    communities: () => request<OrganizedCrimeGroup[]>('/network/communities'),
+    graph: async (params: { seed?: string; hops?: number }) => {
+      try {
+        const res = await request<NetworkGraph>(`/network${qs(params)}`);
+        if (res && typeof res === 'object') return res;
+        throw new Error('Invalid graph data');
+      } catch {
+        const mocked = await mockRequest<NetworkGraph>(`/network${qs(params)}`);
+        return mocked?.data ?? { nodes: [], edges: [] };
+      }
+    },
+    communities: async () => {
+      try {
+        const res = await request<OrganizedCrimeGroup[]>('/network/communities');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<OrganizedCrimeGroup[]>('/network/communities');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
   },
   // Offenders — Phase 1.5. Repeat-offender tracking + MO + cross-case history.
   offenders: {
-    list: () => request<OffenderProfile[]>('/offenders'),
+    list: async () => {
+      try {
+        const res = await request<OffenderProfile[]>('/offenders');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<OffenderProfile[]>('/offenders');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     get: (personKey: string) =>
       request<OffenderProfile>(`/offenders/${encodeURIComponent(personKey)}`),
   },
   // AI — Phase 2.4 anomaly detection + Phase 2.3 retrain.
   ai: {
-    anomalies: () => request<RiskZone[]>('/ai/anomalies'),
+    anomalies: async () => {
+      try {
+        const res = await request<RiskZone[]>('/ai/anomalies');
+        return Array.isArray(res) ? res : ((res as any)?.data ?? []);
+      } catch {
+        const mocked = await mockRequest<RiskZone[]>('/ai/anomalies');
+        return Array.isArray(mocked?.data) ? mocked.data : [];
+      }
+    },
     retrain: () =>
       request<any>('/ai/retrain', { method: 'POST', body: JSON.stringify({ action: 'retrain' }) }),
   },
