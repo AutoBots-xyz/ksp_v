@@ -93,6 +93,7 @@ export default function ReportsPage() {
   const [createError, setCreateError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [pollingJob, setPollingJob] = useState<string | null>(null);
+  const [downloadingJob, setDownloadingJob] = useState<string | null>(null);
 
   const [searchHistory, setSearchHistory] = useState('');
 
@@ -199,6 +200,48 @@ export default function ReportsPage() {
     };
     setTimeout(tick, interval);
   }, []);
+
+  /**
+   * Download a completed report PDF.
+   * We fetch() with credentials:'include' so the Catalyst session cookie (__zlb)
+   * is sent to the API Gateway — preventing the Gateway from redirecting the
+   * browser to the Zoho login page (which happens with bare <a href> links).
+   */
+  const handleDownload = useCallback(async (jobId: string) => {
+    if (downloadingJob) return;
+    setDownloadingJob(jobId);
+    try {
+      const res = await fetch(`/api/v1/reports/${encodeURIComponent(jobId)}/download`, {
+        credentials: 'include',
+      });
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        // If server returned a redirect/login page instead of the PDF, show a clear error
+        throw new Error(
+          res.status === 401 || res.status === 302
+            ? 'Session expired — please log in again and retry.'
+            : `Download failed (HTTP ${res.status}). ${text.slice(0, 120)}`,
+        );
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `KSP-Report-${jobId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    } catch (err) {
+      setToast(
+        `Download error: ${
+          err instanceof Error ? err.message : 'Unknown error'
+        }`,
+      );
+    } finally {
+      setDownloadingJob(null);
+    }
+  }, [downloadingJob]);
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -529,12 +572,16 @@ export default function ReportsPage() {
                       </div>
                     </div>
                     {rpt.status === 'COMPLETE' ? (
-                      <a
-                        href={`/api/v1/reports/${rpt.jobId}/download`}
-                        className="flex items-center justify-center gap-1.5 rounded-lg bg-ksp-navy px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-ksp-blue w-full sm:w-auto"
+                      <button
+                        type="button"
+                        onClick={() => handleDownload(rpt.jobId)}
+                        disabled={downloadingJob === rpt.jobId}
+                        className="flex items-center justify-center gap-1.5 rounded-lg bg-ksp-navy px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-ksp-blue w-full sm:w-auto disabled:opacity-60"
                       >
-                        Download PDF
-                      </a>
+                        {downloadingJob === rpt.jobId ? (
+                          <><span className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />Downloading...</>
+                        ) : 'Download PDF'}
+                      </button>
                     ) : (
                       <span className="text-[10px] text-gray-400 text-center sm:text-left">
                         {rpt.status === 'PROCESSING' ? 'Rendering...' : 'Queued...'}

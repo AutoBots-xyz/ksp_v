@@ -43,4 +43,4 @@
 /forbidden/* /forbidden/index.html 200
 
 /app/* /hub/index.html 200
-/ /hub/index.html 200
+/ /login/index.html 200
